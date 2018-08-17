@@ -31,9 +31,10 @@
                <div class="col-sm-6">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Customer Name</span></label>
-                      <select class="form-control" id = "list_entry" name="serviceableevents[]" >
+                      <select class="form-control" id = "list_entry" name="customer_name" >
+                         <option value="">Select Customer</option>
                       @foreach($customers as $customer)
-                        <option value="{{ $customer->name }}">{{ $customer->name }}</option>
+                        <option value="{{ $customer->name }}">{{ ucfirst($customer->name) }}</option>
                       @endforeach
                       </select>
                      <div class="help-block with-errors"></div>
@@ -42,7 +43,12 @@
                <div class="col-sm-6">
                   <div class="form-group">
                      <label for="inputphone" class="control-label"><span class="asterisk">Location</span></label>
-                     <input type="email" class="form-control" name="email" id="inputphone" required="" >
+                     <select class="form-control" id = "list_entry" name="location" >
+                         <option value="">Select Location</option>
+                      @foreach($locations as $location)
+                        <option value="{{ $location }}"> {{ ucfirst($location) }}</option>
+                      @endforeach
+                      </select>                  
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
