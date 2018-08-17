@@ -30,4 +30,11 @@ Route::get('/staff/{id}/block','AdminStaffController@blockedstaff')->name('block
 Route::get('/contacts/add', 'AdminStaffController@contact');
 Route::post('/contacts/add', 'ContactController@import');
 
+Route::get('/customer/add','CustomerController@index');
+Route::post('/customer/add','CustomerController@store');
+Route::get('/customer','CustomerController@view');
+Route::get('customer/edit/{id}', 'CustomerController@editCustomer')->name('edit_customer');
+Route::post('customer/{id}/update', 'CustomerController@updateCustomer')->name('update_customer');
+Route::delete('/customer/{id}','CustomerController@deleteCustomer')->name('destory_customer');
 
+Route::get('/export','ExportController@index');

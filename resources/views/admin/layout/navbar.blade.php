@@ -42,6 +42,25 @@
 
                     </ul>
                 </li>
+
+                <li class="nav-item @yield('customer')" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#customer" data-parent="#exampleAccordion">
+                        <i class="ti i-cl-12 ti-settings"></i>
+                        <span class="nav-link-text">Customer</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="customer">
+                         <li>
+                            <a href="{{ url('/admin/customer/add') }}">Add Customer</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/admin/customer/') }}">View Customer</a>
+                        </li>
+
+
+                    </ul>
+                </li>
+
+
                 <!-- End Dashboard -->
 
                  <li class="nav-item @yield('contact')" data-toggle="tooltip" data-placement="right" title="Dashboard">
@@ -57,6 +76,12 @@
 
 
                     </ul>
+                </li>
+                 <li class="nav-item @yield('export')" data-toggle="tooltip" data-placement="right" title="Projects">
+                    <a class="nav-link" href="{{ url('/admin/export') }}">
+                        <i class="ti i-cl-2 ti-dashboard"></i>
+                        <span class="nav-link-text">Export</span>
+                    </a>
                 </li>
 
             </ul>
