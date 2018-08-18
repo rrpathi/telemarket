@@ -31,7 +31,7 @@
                <div class="col-sm-6">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Customer Name</span></label>
-                      <select class="form-control" id = "list_entry" name="customer_name" >
+                      <select class="form-control" id = "#"  name="customer_name" required="">
                          <option value="">Select Customer</option>
                       @foreach($customers as $customer)
                         <option value="{{ $customer->name }}">{{ ucfirst($customer->name) }}</option>
@@ -40,10 +40,10 @@
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
-               <div class="col-sm-6">
+               <div class="col-sm-4">
                   <div class="form-group">
                      <label for="inputphone" class="control-label"><span class="asterisk">Location</span></label>
-                     <select class="form-control" id = "list_entry" name="location" >
+                     <select class="form-control" id ="location" name="location" required="">
                          <option value="">Select Location</option>
                       @foreach($locations as $location)
                         <option value="{{ $location }}"> {{ ucfirst($location) }}</option>
@@ -52,6 +52,15 @@
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
+                <div class="col-sm-2">
+                  <div class="form-group">
+                    <div class="form-group">
+                      <label class="control-label"><span class="asterisk">Data Count</span></label>
+                      <input type="text" class="form-control text-only" name="location_count" id="location_count" value="{{ old("location_count") }}" readonly="" required="" >
+                      <div class="help-block with-errors"></div>
+                    </div>
+                  </div>
+                </div>
             </div>
             <div class="col-12">
             <div class="form-group">

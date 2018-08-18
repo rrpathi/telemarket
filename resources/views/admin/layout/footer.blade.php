@@ -41,6 +41,7 @@
 <!-- Custom scripts for all pages -->
 <script src="{{ url('assets\dist\js\glovia.js') }}"></script>
 <script src="{{ url('assets\dist\js\jQuery.style.switcher.js') }}"></script>
+<script src="{{ url('js\customer.js') }}"></script>
 <script>
     function openRightMenu() {
         document.getElementById("rightMenu").style.display = "block";

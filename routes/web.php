@@ -13,6 +13,7 @@
 
 
 Route::get('/', 'AdminAuth\LoginController@showLoginForm')->name('login');
+Route::get('admin/location-count','ExportController@locationCount');
 // Route::post('import', 'ContactController@import')->name('import');
 
 Route::group(['prefix' => 'admin'], function () {
