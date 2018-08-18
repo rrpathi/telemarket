@@ -38,3 +38,4 @@ Route::post('customer/{id}/update', 'CustomerController@updateCustomer')->name('
 Route::delete('/customer/{id}','CustomerController@deleteCustomer')->name('destory_customer');
 
 Route::get('/export','ExportController@index');
+Route::post('/export','ExportController@export')->name('export-data');

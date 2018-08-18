@@ -26,10 +26,21 @@
     
                     <div class="row mrg-0"> 
                         <div class="col-sm-6">
+                    <div class="form-group">
+                        <select class="form-control" name="vendor_code">
+                            <option value="vendor">vendor</option>
+                            <option value="abc">abc</option>
+                        </select>
+                      
+                      <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <input type="file" name="file" class="form-control-file"  aria-describedby="fileHelp">
                             </div>
                         </div>
+
                     </div>
                  
                     </div>

@@ -73,44 +73,7 @@ class AdminStaffController extends Controller
         $staff->save();
         return back()->with('success','staff  Updated Successfully');
     }
-//      public  function account(){
-    
-//       $datas = auth()->user();
-//       return view('admin.account',compact('datas'));
-// }
-   
-//      public function updateaccount($id,Request $request){
-//        $image = $request->file('profilepicture');
-//         Admin::where('id',$id)->update([
-//             'name'=>request('name'),
-//             'email'=>request('email'),
-//             'profilepicture'=>Helper::upload_picture($image),
-//             ]);
-//         return back()->with('success','Account Updated Successfully');
-//     }
-//      public  function password(){
-    
-//       $datas = auth()->user();
-//       return view('admin.password',compact('datas'));
-// }
-//     public function updatepassword(){
-//     $oldpassword = request('oldpassword');
-//     $newpassword = request('newpassword');
-//     $confirmpassword = request('confirmpassword');
-//     $admin = Admin::findOrfail(Auth::user()->id);
-//     if($newpassword === $confirmpassword){
-//          if(Hash::check($oldpassword,$admin->password)){
-//           $admin->password = bcrypt($newpassword);
-//           $admin->save();
-//                 return back()->with('success','Password Changed Successfully');
-//            }else{
-//                return back()->with('danger','Enter Correct Old Password');
-//            }
-//        }else{
-//            return back()->with('danger','Password Does Not Match');
-//        }
-       
-//    }
+
 
    public function blockedstaff(){
         $datas = Staff::where('verified','2')->get();

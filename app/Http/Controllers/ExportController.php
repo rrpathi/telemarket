@@ -34,4 +34,8 @@ class ExportController extends Controller
         }
 
     }
+
+    public function export(){
+         dd(request()->all());
+    }
 }
