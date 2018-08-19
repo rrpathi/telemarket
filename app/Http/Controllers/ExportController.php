@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Customers;
+use App\VendorCode;
 use DB;
 
 
@@ -9,6 +10,7 @@ class ExportController extends Controller
 {
     public function index(){
     	$customers =Customers::all();
+        $datas = VendorCode::all();
     	$tables = DB::select('SHOW TABLES');
     	$locations = array();
     	$removeArray=array('admin_password_resets','admins','customers','migrations','password_resets','staff','staff_password_resets','students','users');
@@ -22,7 +24,7 @@ class ExportController extends Controller
     			$locations[] = $value; 
     		}
     	}
-    	return view('admin.export.index',compact('customers','locations'));	
+    	return view('admin.export.index',compact('customers','locations', 'datas'));	
     }
 
     public function locationCount(){
