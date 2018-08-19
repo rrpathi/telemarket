@@ -40,14 +40,20 @@
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
-                <div class="col-sm-2">
-                  <div class="form-group">
-                      <label class="control-label"><span class="asterisk">Database Count</span></label>
-                      <input type="text" class="form-control number-only" name="database_count" id="location_count" value="{{ old("database_count") }}" required="" >
-                      <div class="help-block with-errors"></div>
-                  </div>
-                </div>
                <div class="col-sm-2">
+                 <div class="form-group">
+                 <label class="control-label"><span class="asterisk">Vendor Code</span></label>
+                        <select class="form-control" name="vendor_code">
+                        @foreach($datas as $vendorcode)
+                            <option value="{{ $vendorcode->vendorid }}">{{ $vendorcode->name}}</option>
+                        @endforeach
+                          
+                        </select>   
+                      
+                      <div class="help-block with-errors"></div>
+                    </div>
+               </div>
+              <div class="col-sm-2">
                   <div class="form-group">
                      <label for="inputphone" class="control-label"><span class="asterisk">Location</span></label>
                      <select class="form-control" id ="location" name="location" required="">
