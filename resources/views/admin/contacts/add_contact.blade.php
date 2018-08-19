@@ -28,9 +28,11 @@
                         <div class="col-sm-6">
                     <div class="form-group">
                         <select class="form-control" name="vendor_code">
-                            <option value="vendor">vendor</option>
-                            <option value="abc">abc</option>
-                        </select>
+                        @foreach($datas as $vendorcode)
+                            <option value="{{ $vendorcode->vendorid }}">{{ $vendorcode->name}}</option>
+                        @endforeach
+                          
+                        </select>   
                       
                       <div class="help-block with-errors"></div>
                     </div>

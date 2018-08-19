@@ -24,7 +24,6 @@
                     </a>
                 </li>
 
-
                 <!-- Start Dashboard-->
                 <li class="nav-item @yield('staff')" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Dashboard" data-parent="#exampleAccordion">
@@ -40,6 +39,23 @@
                         </li>
 
 
+                    </ul>
+                </li>
+
+                 <li class="nav-item @yield('vendorcode')" data-toggle="tooltip" data-placement="right" title="VendorCode">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#vendorcode" data-parent="#exampleAccordion">
+                        <i class="ti i-cl-12 ti-settings"></i>
+                        <span class="nav-link-text">VendorCode</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="vendorcode">
+                         <li>
+                            <a href="{{ url('/admin/vendorcode/add') }}">Add VendorCode</a>
+                        </li>
+                        {{-- <li>
+                            <a href="{{ url('/admin/vendorcode/') }}">View VendorCode</a>
+                        </li>
+
+ --}}
                     </ul>
                 </li>
 
@@ -84,6 +100,7 @@
                     </a>
                 </li>
 
+               
             </ul>
         </div>
         <!-- =============== End Side Menu ============== -->

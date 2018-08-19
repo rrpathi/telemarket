@@ -39,3 +39,7 @@ Route::delete('/customer/{id}','CustomerController@deleteCustomer')->name('desto
 
 Route::get('/export','ExportController@index');
 Route::post('/export','ExportController@export')->name('export-data');
+
+Route::get('/vendorcode/add', 'VendorCodeController@index');
+Route::post('/vendorcode/add', 'VendorCodeController@store');
+

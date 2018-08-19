@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Staff;
 use App\Admin;
 use App\Password;
+use App\VendorCode;
 use Auth;
 use Hash;
 use App\Http\Requests;
@@ -93,7 +94,9 @@ class AdminStaffController extends Controller
    }
 
    public function contact(){
-    return view('admin.contacts.add_contact');
+        $datas = VendorCode::all();
+
+    return view('admin.contacts.add_contact', compact('datas'));
    }
 
   
