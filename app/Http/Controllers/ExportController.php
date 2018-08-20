@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Customers;
 use App\VendorCode;
 use DB;
+use Excel;
 
 
 class ExportController extends Controller
@@ -42,9 +43,15 @@ class ExportController extends Controller
         $table_name = request('location');
         $skip = $request->from_count-1;
         $take = $request->to_count-$request->from_count+1;
-        return $exportdata = DB::table($table_name)->orWhere('vendor_code','like', '%' .$request->vendor_code . '%')->skip($skip)->take($take)->get();
-        // $lastInserted= DB::table($location)->orWhere('vendor_code', 'like', '%' .$request->vendor_code . '%')->orderBy('id', 'desc')->get()->first();
+        $exportdata = DB::table($table_name)->orWhere('vendor_code','like', '%' .$request->vendor_code . '%')->skip($skip)->take($take)->get();
+        $exportdata= json_decode( json_encode($exportdata), true);
 
-         dd(request()->all());
+         Excel::create($table_name,function($excel) use ($exportdata){
+           $excel->sheet('Sheet 1',function($sheet) use ($exportdata){
+               $sheet->fromArray($exportdata);
+           });
+       })->export('xlsx');
     }
+   
+
 }
