@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Session;
+use App\VendorCode;
 
 class ContactController extends Controller
 {
@@ -63,7 +64,7 @@ class ContactController extends Controller
 					$excel_place = array_unique($place);
 					$excel_place = array_map('strtolower', $excel_place);
 					$new_location = array_diff($excel_place,$table_name);
-					$newtableschema = array('tablename'=>$new_location,'colnames' => array('name', 'database_type','category','salary','email_id','company_name','vendor_code'));
+					$newtableschema = array('tablename'=>$new_location,'colnames' => array('name', 'database_type','category','salary','email_id','company_name','vendor_code','vendor_name'));
 
 					// Create Table
 					if(!empty($new_location)){
@@ -89,9 +90,11 @@ class ContactController extends Controller
 						}else{
 							$last_id=1;
 						}
+						$vendor_name= VendorCode::where('vendorid',$request->vendor_code)->get()->first();
 						foreach ($locationData as $key => $value) {
 						   try {
 								$value['vendor_code']=$request->vendor_code.'_'.$last_id;
+								$value['vendor_name']=$vendor_name->name;
 					            $insertData = DB::table($location)->insert($value);
 					            $last_id++; 
 					        	} catch(\Illuminate\Database\QueryException $e){
