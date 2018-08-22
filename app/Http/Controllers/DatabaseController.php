@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Session;
 
-class ContactController extends Controller
+class DatabaseController extends Controller
 {
 	public function index(){
 		return view('add-student');
@@ -99,7 +99,7 @@ class ContactController extends Controller
 					        }
 						}
 					}
-					return back()->with('success','Contact Created Sucessfully');
+					return back()->with('success','Database Created Sucessfully');
 				}
 			}else {
 				return back()->with('error','Check File Formate');

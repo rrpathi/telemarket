@@ -27,8 +27,9 @@ Route::post('/staff/edit/{id}', 'AdminStaffController@showEditstaff');
 Route::post('/staff/{id}/update', 'AdminStaffController@updatestaff')->name('update_staff');
 Route::get('/staff/{id}/block','AdminStaffController@blockedstaff')->name('block_staff');
 
-Route::get('/contacts/add', 'AdminStaffController@contact');
-Route::post('/contacts/add', 'ContactController@import');
+Route::get('/database/add', 'AdminStaffController@contact');
+Route::post('/database/add', 'DatabaseController@import');
+
 
 Route::get('/customer/add','CustomerController@index');
 Route::post('/customer/add','CustomerController@store');

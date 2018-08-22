@@ -52,7 +52,7 @@
                     <div class="col-12">
                         <div class="form-group">
                             <div class="text-center">
-                                <button type="submit" class="btn gredient-btn">Update staff</button>
+                                <button type="submit" class="btn gredient-btn">Update Customer</button>
                             </div>
                         </div>
                     </div>
