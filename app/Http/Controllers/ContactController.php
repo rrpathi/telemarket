@@ -83,6 +83,7 @@ class ContactController extends Controller
 
 					// DATA INSERT
 					foreach ($locationArray as $location => $locationData) {
+						$location=strtolower($location);
 						$lastInserted= DB::table($location)->orWhere('vendor_code', 'like', '%' .$request->vendor_code . '%')->orderBy('id', 'desc')->get()->first();
 						if (!empty($lastInserted)) {
 							$last = explode('_',$lastInserted->vendor_code);
