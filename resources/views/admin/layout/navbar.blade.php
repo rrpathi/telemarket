@@ -82,11 +82,11 @@
                  <li class="nav-item @yield('contact')" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Contact" data-parent="#exampleAccordion">
                         <i class="ti i-cl-12 ti-settings"></i>
-                        <span class="nav-link-text">Contact</span>
+                        <span class="nav-link-text">Database</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="Contact">
                          <li>
-                            <a href="{{ url('/admin/contacts/add') }}">Add Contacts</a>
+                            <a href="{{ url('/admin/contacts/add') }}">Add Database</a>
                         </li>
                         
 
