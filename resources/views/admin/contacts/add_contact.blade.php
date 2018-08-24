@@ -27,7 +27,7 @@
                <div class="col-sm-4">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Database Type</span></label>
-                     <select class="form-control" name="vendor_code">
+                     <select class="form-control" name="table_type">
                         <option value="business">Business</option>
                         <option value="salary">Salary</option>
                      </select>

@@ -22,6 +22,7 @@ class ContactController extends Controller
 		));
 
 		if($request->hasFile('file')){
+			$table_type = request('table_type');
 			$extension = File::extension($request->file->getClientOriginalName());
 			if ($extension == "xlsx" || $extension == "xls" || $extension == "csv") {
 				$path = $request->file->getRealPath();
@@ -47,6 +48,7 @@ class ContactController extends Controller
 						];
 					}
 					
+
 					// location Array Excel 
 					foreach ($exceldata as $key => $value) {
 						// if ($value['name']!=""&&$value['mobile']!=""&&$value['location']!="") {
@@ -61,10 +63,11 @@ class ContactController extends Controller
 						// }
 					}
 
-					$excel_place = array_unique($place);
-					$excel_place = array_map('strtolower', $excel_place);
-					$new_location = array_diff($excel_place,$table_name);
+					 $excel_place = array_unique(array_map('strtolower', $place));
+					 $new_location = array_diff($excel_place,$table_name);
+
 					$newtableschema = array('tablename'=>$new_location,'colnames' => array('name', 'database_type','category','salary','email_id','company_name','vendor_code','vendor_name'));
+
 
 					// Create Table
 					if(!empty($new_location)){
@@ -79,6 +82,7 @@ class ContactController extends Controller
 							});
 						}
 					}
+
 
 
 					// DATA INSERT
