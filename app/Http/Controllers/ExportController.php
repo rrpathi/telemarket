@@ -56,5 +56,20 @@ class ExportController extends Controller
         
     }
    
+   public function catagoryChange(){
+    if (!empty(request('location'))&&!empty(request('category_value'))) {
+            $location_count = DB::table(request('location'))->select('category')->Where('database_type',request('category_value'))->get();
+           $location_count= $location_count->unique('category')->toArray();
+           $optionData='';
+            foreach ($location_count as $key => $value) {
+                $optionData = $optionData.'<option value="'.$value->category.'">'.$value->category.'</option>';
+            }
+            return $optionData;
+
+    }else{
+        return '';
+    }
+
+   }
 
 }
