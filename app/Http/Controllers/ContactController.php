@@ -58,8 +58,8 @@ class ContactController extends Controller
                         // if ($value['name']!=""&&$value['mobile']!=""&&$value['location']!="") {
                         $place[]                                                  = $value['location'];
                         $locationArray[$value['location']][$key]['name']          = $value['name'];
-                        $locationArray[$value['location']][$key]['database_type'] = $value['database_type'];
-                        $locationArray[$value['location']][$key]['category']      = $value['category'];
+                        $locationArray[$value['location']][$key]['database_type'] =strtolower($value['database_type']);
+                        $locationArray[$value['location']][$key]['category']      =strtolower($value['category']);
                         $locationArray[$value['location']][$key]['mobile_no']     = $value['mobile_no'];
                         $locationArray[$value['location']][$key]['salary']        = $value['salary'];
                         $locationArray[$value['location']][$key]['email_id']      = $value['email_id'];
