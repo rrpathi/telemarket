@@ -28,11 +28,13 @@ class ExportController extends Controller
     	return view('admin.export.index',compact('customers','locations', 'datas'));	
     }
 
-    public function locationCount(){
-        $location_name = request('location');
+    public function locationCount(Request $request){
+        $location = request('location');
         $vendor_code=request('vendor_code');
-        if (!empty($location_name)&&!empty($vendor_code)) {
-            return $location_count = DB::table($location_name)->orWhere('vendor_code','like', '%' .$vendor_code . '%')->count();
+        $database_type=request('database_type');
+        $category_value=request('category_value');
+        if (!empty($location)&&!empty($database_type)&&!empty($category_value)) {
+            return $location_count = DB::table($location)->Where([['database_type', '=', $database_type],['category', '=', $category_value]])->count();
         }else{
             return '';
         }
@@ -60,7 +62,7 @@ class ExportController extends Controller
     if (!empty(request('location'))&&!empty(request('category_value'))) {
             $location_count = DB::table(request('location'))->select('category')->Where('database_type',request('category_value'))->get();
            $location_count= $location_count->unique('category')->toArray();
-           $optionData='<select class="form-control export_change"  name="catagory" required=""><option value="">Select Catagory</option>';
+           $optionData='<select class="form-control export_change"  id="category" required=""><option value="">Select Catagory</option>';
             foreach ($location_count as $key => $value) {
                 $optionData = $optionData.'<option value="'.$value->category.'">'.$value->category.'</option>';
             }
