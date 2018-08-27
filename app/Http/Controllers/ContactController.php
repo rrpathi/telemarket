@@ -83,7 +83,8 @@ class ContactController extends Controller
                             'email_id',
                             'company_name',
                             'vendor_code',
-                            'vendor_name'
+                            'vendor_name',
+                            'vendor_id'
                         )
                     );
                     
@@ -122,6 +123,7 @@ class ContactController extends Controller
                                 }
                                 $value['vendor_code'] = strtolower($value['database_type']) . '_' . strtolower($value['category']) . '_' . $request->vendor_code . '_' . $last_id;
                                 $value['vendor_name'] = $vendor_name->name;
+                                $value['vendor_id']   = $request->vendor_code;
                                 $insertData           = DB::table($location)->insert($value);
                                 $last_id++;
                             }

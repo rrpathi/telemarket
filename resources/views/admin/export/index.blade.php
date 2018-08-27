@@ -106,14 +106,14 @@
                <div class="col-sm-1">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">From</span></label>
-                     <input type="number"  class="form-control count_value" min="0" name="from_count" id="from_count" value="{{ old("from_count") }}"  required="" >
+                     <input type="number"  class="form-control count_value" min="1" name="from_count" id="from_count" value="{{ old("from_count") }}"  required="" >
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
                <div class="col-sm-1">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">To</span></label>
-                     <input type="number" class="form-control count_value" min="0" name="to_count" id="to_count" value="{{ old("to_count") }}"  required="" >
+                     <input type="number" class="form-control count_value" min="1" name="to_count" id="to_count" value="{{ old("to_count") }}"  required="" >
                      <div class="help-block with-errors"></div>
                   </div>
                </div>

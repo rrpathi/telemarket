@@ -18,6 +18,7 @@ class CustomerExportHistory extends Migration
             $table->string('customer_id');
             $table->string('vendor_code');
             $table->string('location');
+            $table->string('category');
             $table->string('from_count');
             $table->string('to_count');
             $table->string('export_count');

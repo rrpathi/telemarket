@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	$( window ).on("load", function() {
+		$('#vendor_code').hide();
+	});
 	$(".category_change").change(function(){
 		var location = $("#location").val();
 		var category_value = $("#database_type").val();
@@ -17,6 +20,10 @@ $(document).ready(function(){
 		var location = $("#location").val();
 		var database_type = $("#database_type").val();
 		var category_value = $("#category").val();
+		console.log(category_value);
+		if (category_value!='') {
+			$('#vendor_code').show();
+		}
 		$.ajax({
 			type : "get",
 			url:'../../admin/location-count',
