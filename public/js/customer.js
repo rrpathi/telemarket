@@ -26,8 +26,7 @@ $(document).ready(function(){
 			url:'../../admin/catagory-change',
 			data:{location:location,category_value:category_value},
 			success: function(data) {
-				console.log(data);
-				$('#optionData').append(data);
+				$('#optionData').html(data);
 			}
 		});
 	});

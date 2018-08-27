@@ -73,10 +73,11 @@
                  <div class="col-sm-2">
                   <div class="form-group">
                      <label for="inputphone" class="control-label"><span class="asterisk">Category</span></label>
-                     <select class="form-control export_change" id ="#" name="#" required="">
-                        <option value="">Select Category</option>
                           <div id="optionData"></div>
-                     </select>
+                     
+                     {{-- <select class="form-control export_change"  name="#" required="">
+                        <option value="" id="optionData"></option>
+                     </select> --}}
                      <div class="help-block with-errors"></div>
                   </div>
                </div>

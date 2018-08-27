@@ -60,10 +60,11 @@ class ExportController extends Controller
     if (!empty(request('location'))&&!empty(request('category_value'))) {
             $location_count = DB::table(request('location'))->select('category')->Where('database_type',request('category_value'))->get();
            $location_count= $location_count->unique('category')->toArray();
-           $optionData='';
+           $optionData='<select class="form-control export_change"  name="catagory" required=""><option value="">Select Catagory</option>';
             foreach ($location_count as $key => $value) {
                 $optionData = $optionData.'<option value="'.$value->category.'">'.$value->category.'</option>';
             }
+            $optionData=$optionData.'</select>';
             return $optionData;
 
     }else{
