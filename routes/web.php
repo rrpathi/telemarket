@@ -14,6 +14,8 @@
 
 Route::get('/', 'AdminAuth\LoginController@showLoginForm')->name('login');
 Route::get('admin/location-count','ExportController@locationCount');
+Route::get('admin/catagory-change','ExportController@catagoryChange');
+
 // Route::post('import', 'ContactController@import')->name('import');
 
 Route::group(['prefix' => 'admin'], function () {

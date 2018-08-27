@@ -42,7 +42,7 @@
                </div>
                <div class="col-sm-2">
                   <div class="form-group">
-                     <label class="control-label"><span class="asterisk">Count</span></label>
+                     <label class="control-label"><span class="asterisk">Customer Count</span></label>
                      <input type="number" class="form-control" min="0"  id="#"  required="" >
                      <div class="help-block with-errors"></div>
                   </div>
@@ -50,7 +50,7 @@
                <div class="col-sm-2">
                   <div class="form-group">
                      <label for="inputphone" class="control-label"><span class="asterisk">Location</span></label>
-                     <select class="form-control export_change" id ="location" name="location" required="">
+                     <select class="form-control export_change category_change" id ="location" name="location" required="">
                         <option value="">Select Location</option>
                         @foreach($locations as $location)
                         <option value="{{ $location }}"> {{ ucfirst($location) }}</option>
@@ -62,9 +62,9 @@
                  <div class="col-sm-2">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Database Type</span></label>
-                     <select class="form-control export_change" id="#" name="">
-                        <option value="#">Business</option>
-                        <option value="#">Salary</option>
+                     <select class="form-control export_change category_change" id="category_value" name="">
+                        <option value="business">Business</option>
+                        <option value="salaried">Salary</option>
 
                      </select>
                      <div class="help-block with-errors"></div>
@@ -73,12 +73,11 @@
                  <div class="col-sm-2">
                   <div class="form-group">
                      <label for="inputphone" class="control-label"><span class="asterisk">Category</span></label>
-                     <select class="form-control export_change" id ="#" name="#" required="">
-                        <option value="">Select Category</option>
-                        @foreach($locations as $location)
-                        <option value="{{ $location }}"> {{ ucfirst($location) }}</option>
-                        @endforeach
-                     </select>
+                          <div id="optionData"></div>
+                     
+                     {{-- <select class="form-control export_change"  name="#" required="">
+                        <option value="" id="optionData"></option>
+                     </select> --}}
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
