@@ -58,7 +58,7 @@ class ContactController extends Controller
                     // location Array Excel 
                     foreach ($exceldata as $key => $value) {
                         // if ($value['name']!=""&&$value['mobile']!=""&&$value['location']!="") {
-                        if (strlen($value['mobile_no'])==10 && !in_array($value['mobile_no'], $bloklist)) {
+                        if (strlen($value['mobile_no'])==10 && !in_array($value['mobile_no'], $bloklistArray)) {
                             $place[]                                                  = $value['location'];
                             $locationArray[$value['location']][$key]['name']          = $value['name'];
                             $locationArray[$value['location']][$key]['database_type'] =strtolower($value['database_type']);
