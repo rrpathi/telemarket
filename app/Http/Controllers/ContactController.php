@@ -54,11 +54,11 @@ class ContactController extends Controller
                     }
                     
                     
-                    $bloklistArray = BlockList::select('phone_number')->get()->pluck('phone_number');
+                    // $bloklistArray = BlockList::select('phone_number')->get()->pluck('phone_number');
                     // location Array Excel 
                     foreach ($exceldata as $key => $value) {
                         // if ($value['name']!=""&&$value['mobile']!=""&&$value['location']!="") {
-                        if (strlen($value['mobile_no'])==10 && !in_array($value['mobile_no'], $bloklist)) {
+                        // if (strlen($value['mobile_no'])==10 && !in_array($value['mobile_no'], $bloklistArray)) {
                             $place[]                                                  = $value['location'];
                             $locationArray[$value['location']][$key]['name']          = $value['name'];
                             $locationArray[$value['location']][$key]['database_type'] =strtolower($value['database_type']);
@@ -67,7 +67,7 @@ class ContactController extends Controller
                             $locationArray[$value['location']][$key]['salary']        = $value['salary'];
                             $locationArray[$value['location']][$key]['email_id']      = $value['email_id'];
                             $locationArray[$value['location']][$key]['company_name']  = $value['company_name'];
-                        }
+                        // }
                         // }
                     }
                     
