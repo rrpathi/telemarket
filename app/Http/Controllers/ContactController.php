@@ -53,10 +53,8 @@ class ContactController extends Controller
                         ];
                     }
                     
-                     $bloklistArray = BlockList::select('phone_number')->get();
-                    foreach ($bloklistArray as $key => $value) {
-                        $bloklist[] = $value->phone_number;
-                    }
+                    
+                    $bloklistArray = BlockList::select('phone_number')->get()->pluck('phone_number');
                     // location Array Excel 
                     foreach ($exceldata as $key => $value) {
                         // if ($value['name']!=""&&$value['mobile']!=""&&$value['location']!="") {
