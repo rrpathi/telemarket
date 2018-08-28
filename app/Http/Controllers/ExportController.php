@@ -15,7 +15,7 @@ class ExportController extends Controller
         $datas = VendorCode::all();
     	$tables = DB::select('SHOW TABLES');
     	$locations = array();
-    	$removeArray=array('admin_password_resets','admins','customers','migrations','password_resets','staff','staff_password_resets','students','users','vendor_codes','customer_export_history');
+    	$removeArray=array('admin_password_resets','admins','customers','migrations','password_resets','staff','staff_password_resets','students','users','vendor_codes','customer_export_history','block_lists');
     	 $tables = DB::select('SHOW TABLES');
 		foreach ($tables as $table) {
 			foreach ($table as $key => $value)
