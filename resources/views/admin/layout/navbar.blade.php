@@ -25,37 +25,16 @@
                 </li>
 
                 <!-- Start Dashboard-->
-                <li class="nav-item @yield('staff')" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Dashboard" data-parent="#exampleAccordion">
+
+                <li class="nav-item @yield('contact')" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Contact" data-parent="#exampleAccordion">
                         <i class="ti i-cl-12 ti-settings"></i>
-                        <span class="nav-link-text">Staffs</span>
+                        <span class="nav-link-text">Database</span>
                     </a>
-                    <ul class="sidenav-second-level collapse" id="Dashboard">
+                    <ul class="sidenav-second-level collapse" id="Contact">
                          <li>
-                            <a href="{{ url('/admin/staff/add') }}">Add Staff</a>
+                            <a href="{{ url('/admin/contacts/add') }}">Add Database</a>
                         </li>
-                        <li>
-                            <a href="{{ url('/admin/staff/') }}">View Staff</a>
-                        </li>
-
-
-                    </ul>
-                </li>
-
-                 <li class="nav-item @yield('vendorcode')" data-toggle="tooltip" data-placement="right" title="VendorCode">
-                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#vendorcode" data-parent="#exampleAccordion">
-                        <i class="ti i-cl-12 ti-settings"></i>
-                        <span class="nav-link-text">VendorCode</span>
-                    </a>
-                    <ul class="sidenav-second-level collapse" id="vendorcode">
-                         <li>
-                            <a href="{{ url('/admin/vendorcode/add') }}">Add VendorCode</a>
-                        </li>
-                        {{-- <li>
-                            <a href="{{ url('/admin/vendorcode/') }}">View VendorCode</a>
-                        </li>
-
- --}}
                     </ul>
                 </li>
 
@@ -76,31 +55,54 @@
                     </ul>
                 </li>
 
-
-                <!-- End Dashboard -->
-
-                 <li class="nav-item @yield('contact')" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Contact" data-parent="#exampleAccordion">
-                        <i class="ti i-cl-12 ti-settings"></i>
-                        <span class="nav-link-text">Contact</span>
-                    </a>
-                    <ul class="sidenav-second-level collapse" id="Contact">
-                         <li>
-                            <a href="{{ url('/admin/contacts/add') }}">Add Contacts</a>
-                        </li>
-                        
-
-
-                    </ul>
-                </li>
-                 <li class="nav-item @yield('export')" data-toggle="tooltip" data-placement="right" title="Projects">
+                <li class="nav-item @yield('export')" data-toggle="tooltip" data-placement="right" title="Projects">
                     <a class="nav-link" href="{{ url('/admin/export') }}">
                         <i class="ti i-cl-2 ti-dashboard"></i>
                         <span class="nav-link-text">Export</span>
                     </a>
                 </li>
 
-               
+                <li class="nav-item @yield('staff')" data-toggle="tooltip" data-placement="right" title="Staff">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Staff" data-parent="#exampleAccordion">
+                        <i class="ti i-cl-12 ti-settings"></i>
+                        <span class="nav-link-text">Staffs</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="Staff">
+                         <li>
+                            <a href="{{ url('/admin/staff/add') }}">Add Staff</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/admin/staff/') }}">View Staff</a>
+                        </li>
+
+
+                    </ul>
+                </li>
+
+                <li class="nav-item @yield('vendorcode')" data-toggle="tooltip" data-placement="right" title="VendorCode">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#vendorcode" data-parent="#exampleAccordion">
+                        <i class="ti i-cl-12 ti-settings"></i>
+                        <span class="nav-link-text">VendorCode</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="vendorcode">
+                         <li>
+                            <a href="{{ url('/admin/vendorcode/add') }}">Add VendorCode</a>
+                        </li>
+                    </ul>
+                </li>
+
+                 <li class="nav-item @yield('number')" data-toggle="tooltip" data-placement="right" title="BlockList">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#number" data-parent="#exampleAccordion">
+                        <i class="ti i-cl-12 ti-settings"></i>
+                        <span class="nav-link-text">BlockList</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="number">
+                         <li>
+                            <a href="{{ url('/admin/blocklist/add') }}">Add BlockList</a>
+                        </li>
+                </li>
+                
+                <!-- End Dashboard -->     
             </ul>
         </div>
         <!-- =============== End Side Menu ============== -->
