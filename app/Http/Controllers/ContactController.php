@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Session;
 use App\VendorCode;
+use App\BlockList;
 
 class ContactController extends Controller
 {
@@ -53,17 +54,20 @@ class ContactController extends Controller
                     }
                     
                     
+                    $bloklistArray = BlockList::select('phone_number')->get()->pluck('phone_number');
                     // location Array Excel 
                     foreach ($exceldata as $key => $value) {
                         // if ($value['name']!=""&&$value['mobile']!=""&&$value['location']!="") {
-                        $place[]                                                  = $value['location'];
-                        $locationArray[$value['location']][$key]['name']          = $value['name'];
-                        $locationArray[$value['location']][$key]['database_type'] =strtolower($value['database_type']);
-                        $locationArray[$value['location']][$key]['category']      =strtolower($value['category']);
-                        $locationArray[$value['location']][$key]['mobile_no']     = $value['mobile_no'];
-                        $locationArray[$value['location']][$key]['salary']        = $value['salary'];
-                        $locationArray[$value['location']][$key]['email_id']      = $value['email_id'];
-                        $locationArray[$value['location']][$key]['company_name']  = $value['company_name'];
+                        if (strlen($value['mobile_no'])==10 && !in_array($value['mobile_no'], $bloklist)) {
+                            $place[]                                                  = $value['location'];
+                            $locationArray[$value['location']][$key]['name']          = $value['name'];
+                            $locationArray[$value['location']][$key]['database_type'] =strtolower($value['database_type']);
+                            $locationArray[$value['location']][$key]['category']      =strtolower($value['category']);
+                            $locationArray[$value['location']][$key]['mobile_no']     = $value['mobile_no'];
+                            $locationArray[$value['location']][$key]['salary']        = $value['salary'];
+                            $locationArray[$value['location']][$key]['email_id']      = $value['email_id'];
+                            $locationArray[$value['location']][$key]['company_name']  = $value['company_name'];
+                        }
                         // }
                     }
                     
