@@ -20,8 +20,8 @@
 <div class="row">
    <div class="col-md-12 col-sm-12">
       <form data-toggle="validator" id="#" class="padd-20" method="post" action="{{ route('admin.export-data') }}" enctype="multipart/form-data">
-         <div class="card">
             {{ csrf_field() }}
+         <div class="card">
             <div class="row page-titles">
                <div class="align-center">
                   <h4 class="theme-cl">Customer Details</h4>
@@ -43,7 +43,7 @@
                <div class="col-sm-2">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Customer Count</span></label>
-                     <input type="number" class="form-control" min="0"  id="#"  required="" >
+                     <input type="number" class="form-control" name="customer_count" min="0"  id="#"  required="" >
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
@@ -120,7 +120,7 @@
                <div class="col-sm-2">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Export Count</span></label>
-                     <input type="number" class="form-control" min="0" readonly="" id="export_count"  required="" >
+                     <input type="number" class="form-control" min="0" readonly="" id="export_count" name="export_count"  required="" >
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
