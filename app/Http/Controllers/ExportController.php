@@ -16,7 +16,7 @@ class ExportController extends Controller
         $datas = VendorCode::all();
     	$tables = DB::select('SHOW TABLES');
     	$locations = array();
-    	$removeArray=array('admin_password_resets','admins','customers','migrations','password_resets','staff','staff_password_resets','students','users','vendor_codes','customer_export_history','block_lists');
+    	$removeArray=array('admin_password_resets','admins','customers','migrations','password_resets','staff','staff_password_resets','students','users','vendor_codes','customer_export_history','block_lists','temp_datas');
     	 $tables = DB::select('SHOW TABLES');
 		foreach ($tables as $table) {
 			foreach ($table as $key => $value)
@@ -61,27 +61,56 @@ class ExportController extends Controller
 
    }
 
-    public function export(Request $request){
-        $TempData = TempData::Where([['customer_id',$request->customer_id]])->orderBy('id', 'DESC')->first();
+   public function customerExportCount(){
+        if (!empty(request()->customer_id)) {
+            $TempData = TempData::Where([['customer_id',request()->customer_id],['export_status',0]])->orderBy('id', 'DESC')->first();
+            return $TempData['remaining_count'];
+        }
+   }
 
+//Save datas in Temp_data
+    public function export(Request $request){
+        //check temp_datas empty or not
+        $TempData = TempData::Where([['customer_id',$request->customer_id]])->orderBy('id', 'DESC')->first();
         // return $request->all();
         if(empty($TempData) || $TempData['export_status']==1){
-            $data['customer_id']=$request->customer_id;
-            $data['customer_count']=$request->customer_count;
-            $data['remaining_count']=$request->customer_count-$request->export_count;
-            $tempdataId= TempData::create($data)['id'];
-            $column_values = array('customer_id'=>$request->customer_id,'vendor_code'=>$request->vendor_code,'location'=>$request->location,'category'=>$request->category, 'from_count'=>$request->from_count,'to_count'=>$request->to_count,'export_count'=>$request->export_count,'temp_datas_id'=>$tempdataId);
-            $ExportHistoryInsert = ExportHistory::create($column_values);
-            return "Inserted";
+            // if temp_datas table is empty to particular customer create new temp data
+            if ($request->customer_count-$request->export_count>=0) { //Customer Count less if User Enter more Count
+                 $data['customer_id']=$request->customer_id;
+                $data['customer_count']=$request->customer_count;
+                $data['remaining_count']=$request->customer_count-$request->export_count;
+                $TempData= TempData::create($data);
+                $column_values = array('customer_id'=>$request->customer_id,'vendor_code'=>$request->vendor_code,'location'=>$request->location,'category'=>$request->category, 'from_count'=>$request->from_count,'to_count'=>$request->to_count,'export_count'=>$request->export_count,'temp_datas_id'=>$TempData['id']);
+                $ExportHistoryInsert = ExportHistory::create($column_values);
+                // return "Inserted";
+            }else{
+               return back()->with('danger','Sorry!  You Are Data limit Exceed.You Gave :'.$request->customer_count.'.But your Export Data Count is: '.$request->export_count); 
+            }
         }else{
+            if ($TempData['remaining_count']-$request->export_count>=0) {
+                $data = TempData::find($TempData['id']);
+                $data['remaining_count']=$TempData['remaining_count']-$request->export_count;
+                $data->save();
+                $column_values = array('customer_id'=>$request->customer_id,'vendor_code'=>$request->vendor_code,'location'=>$request->location,'category'=>$request->category, 'from_count'=>$request->from_count,'to_count'=>$request->to_count,'export_count'=>$request->export_count,'temp_datas_id'=>$TempData['id']);
+                $ExportHistoryInsert = ExportHistory::create($column_values);
+                // return "Inserted";
+            }else{
+                return back()->with('danger','Sorry!  You Balance Count is :'.$TempData['remaining_count']); 
+            }
+        }
+
+        // EXPORT MODULE
+        if($data['remaining_count']==0){
             $data = TempData::find($TempData['id']);
-            $data['remaining_count']=$TempData['remaining_count']-$request->export_count;
+            $data['export_status']=1;
             $data->save();
-            $column_values = array('customer_id'=>$request->customer_id,'vendor_code'=>$request->vendor_code,'location'=>$request->location,'category'=>$request->category, 'from_count'=>$request->from_count,'to_count'=>$request->to_count,'export_count'=>$request->export_count,'temp_datas_id'=>$TempData['id']);
-            $ExportHistoryInsert = ExportHistory::create($column_values);
-            return "Inserted";
-            
-            // return "Data Updated";
+            return $exportHistoryData= ExportHistory::Where([['temp_datas_id',$TempData['id']]])->get();
+            foreach ($exportHistoryData as $key => $value) {
+                
+            }
+
+        }else{
+            return "not export";
         }
 
         // $table_name = request('location');
