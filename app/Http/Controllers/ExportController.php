@@ -12,22 +12,22 @@ use App\TempData;
 class ExportController extends Controller
 {
     public function index(){
-    	$customers =Customers::all();
+        $customers =Customers::all();
         $datas = VendorCode::all();
-    	$tables = DB::select('SHOW TABLES');
-    	$locations = array();
-    	$removeArray=array('admin_password_resets','admins','customers','migrations','password_resets','staff','staff_password_resets','students','users','vendor_codes','customer_export_history','block_lists','temp_datas');
-    	 $tables = DB::select('SHOW TABLES');
-		foreach ($tables as $table) {
-			foreach ($table as $key => $value)
-			$table_name[] = $value;
-		}
-    	foreach ($table_name as $key => $value) {
-    		if(!in_array($value, $removeArray)){
-    			$locations[] = $value; 
-    		}
-    	}
-    	return view('admin.export.index',compact('customers','locations', 'datas'));	
+        $tables = DB::select('SHOW TABLES');
+        $locations = array();
+        $removeArray=array('admin_password_resets','admins','customers','migrations','password_resets','staff','staff_password_resets','students','users','vendor_codes','customer_export_history','block_lists','temp_datas');
+         $tables = DB::select('SHOW TABLES');
+        foreach ($tables as $table) {
+            foreach ($table as $key => $value)
+            $table_name[] = $value;
+        }
+        foreach ($table_name as $key => $value) {
+            if(!in_array($value, $removeArray)){
+                $locations[] = $value; 
+            }
+        }
+        return view('admin.export.index',compact('customers','locations', 'datas'));    
     }
 
     public function locationCount(Request $request){
@@ -103,42 +103,28 @@ class ExportController extends Controller
         if($data['remaining_count']==0){
             $data = TempData::find($TempData['id']);
             $data['export_status']=1;
-            $data->save();
-            return $exportHistoryData= ExportHistory::Where([['temp_datas_id',$TempData['id']]])->get();
-            foreach ($exportHistoryData as $key => $value) {
-                
-            }
-
-        }else{
-            return "not export";
+            $data->save(); //update export status to tempdata table
+            $exportHistoryData= ExportHistory::Where([['temp_datas_id',$TempData['id']]])->get();//get all data from export table
+              foreach ($exportHistoryData as $key => $value) {
+                    $skip = $value['from_count']-1;
+                    $take = $value['to_count']-$value['from_count']+1;
+                    $exportdata[] = DB::table($value['location'])->select('mobile_no','name','database_type','category','salary','email_id','company_name','vendor_name')->Where([['vendor_id',$value['vendor_code']],['category',$value['category']]])->skip($skip)->take($take)->get()->toArray();
+              }
+              foreach ($exportdata as $key => $value) {
+                foreach ($value as $key => $value1) {
+                    $finalData[] =json_decode( json_encode($value1), true);
+                }
+              }
+            $exportdata= json_decode( json_encode($finalData), true);
+             Excel::create('test',function($excel) use ($exportdata){
+               $excel->sheet('Sheet 1',function($sheet) use ($exportdata){
+                   $sheet->fromArray($exportdata);
+               });
+            })->export('xlsx');
+             return back();
         }
-
-        // $table_name = request('location');
-        // $skip = $request->from_count-1;
-        // $take = $request->to_count-$request->from_count+1;
-
-        // // return $request->all();
-
-        // $ExportHistory= ExportHistory::Where([['customer_id',$request->customer_id],['location',$request->location],['category',$request->category],['vendor_code',$request->vendor_code],['from_count',$request->from_count],['to_count',$request->to_count]])->first();
-
-        // if (empty($ExportHistory)) {
-        //     $exportdata = DB::table($table_name)->select('mobile_no','name','database_type','category','salary','email_id','company_name','vendor_name')->orWhere('vendor_code','like', '%' .$request->vendor_code . '%')->skip($skip)->take($take)->get();
-        //     $exportdata= json_decode( json_encode($exportdata), true);
-        //     $column_values = array('customer_id'=>$request->customer_id,'vendor_code'=>$request->vendor_code,'location'=>$request->location,'category'=>$request->category, 'from_count'=>$request->from_count,'to_count'=>$request->to_count,'export_count'=>$take);
-        //     $export_data_histroy = DB::table('customer_export_history')->insert($column_values);
-
-        //     Excel::create($table_name,function($excel) use ($exportdata){
-        //        $excel->sheet('Sheet 1',function($sheet) use ($exportdata){
-        //            $sheet->fromArray($exportdata);
-        //        });
-        //     })->export('xlsx');
-        // }
-        // else{
-        //     return back()->with('danger','Sorry!  You Are Already Downloaded '); 
-        // }
-        
-        
+        else{
+            return back()->with('success','Data Submitted Sucessfully'); 
+        }
     }
-    
-
 }
