@@ -22,6 +22,7 @@ class CustomerExportHistory extends Migration
             $table->string('from_count');
             $table->string('to_count');
             $table->string('export_count');
+            $table->integer('temp_datas_id');
             $table->timestamps();
         });
     }

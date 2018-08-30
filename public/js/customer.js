@@ -41,4 +41,20 @@ $(document).ready(function(){
 		  // console.log(exportCount);
 	})
 
+	// GET EXPORT DATA COUNT
+	$('body').on('change', '#exportCustomer', function() {
+		var exportCustomer = $("#exportCustomer option:selected").val();
+		$.ajax({
+			type : "get",
+			url:'../../admin/customer_export_count',
+			data:{customer_id:exportCustomer},
+			success: function(data) {
+				if(data!=''){
+					$('#CustomerCount').val(data);
+					$('#CustomerCount').attr('readonly', true);
+				}
+			}
+		});
+	});
+
 });
