@@ -36,7 +36,7 @@ class ExportController extends Controller
         $database_type=request('database_type');
         $category_value=request('category_value');
         if (!empty($location)&&!empty($database_type)&&!empty($category_value)) {
-            return $location_count = DB::table($location)->Where([['database_type', '=', $database_type],['category', '=', $category_value],['vendor_id', '=', $vendor_code]])->count();
+           return $location_count = DB::table($location)->Where([['database_type', '=', $database_type],['category', '=', $category_value],['vendor_id', '=', $vendor_code]])->count();
         }else{
             return '';
         }
@@ -73,25 +73,25 @@ class ExportController extends Controller
         $TempData = TempData::Where([['customer_id',$request->customer_id]])->orderBy('id', 'DESC')->first();
         if ($TempData['export_status']==0) {
             $exportHistoryData=ExportHistory::Where([['temp_datas_id',$TempData['id']],['vendor_code',$request->vendor_code],['location',$request->location],['category',$request->category]])->get();
-echo "<pre>";
+
             if(!empty($exportHistoryData)){
                 foreach ($exportHistoryData as $key => $export) {
                     $datas=$export;
                     if(($export['from_count']>=$request->from_count) && ($export['from_count']<=$request->to_count)){
-                        return 'not insert form';
-                        echo "count from in";
+                        return back()->with('danger','Already Data Insert Form : '.$export['from_count'].' .To count '.$export['to_count']);
+                        // echo "count from in";
 
                     }elseif(($export['to_count']>=$request->from_count) && ($export['to_count']<=$request->to_count)){
-                        return 'not insert to ';
-                        echo "count to in";
+                         return back()->with('danger','Already Data Insert Form : '.$export['from_count'].' .To count '.$export['to_count']);
+                        // echo "count to in";
 
                     }elseif(($export['from_count']<=$request->from_count) && ($request->to_count<=$export['to_count'])){
-                        return 'not insert between';
-                        echo "export Center content";
+                         return back()->with('danger','Already Data Insert Form : '.$export['from_count'].' .To count '.$export['to_count']);
+                        // echo "export Center content";
 
                     }elseif(($export['from_count']>=$request->from_count) && ($request->to_count>=$export['to_count'])){
-                        return 'not insert outer';
-                        echo "on outer content";
+                         return back()->with('danger','Already Data Insert Form : '.$export['from_count'].' .To count '.$export['to_count']);
+                        // echo "on outer content";
 
                     }
                     
@@ -99,17 +99,7 @@ echo "<pre>";
            }
         }
 
-        // if((1<=10)&&(10<=10)){
-        //     echo "in between";
-        // }
-
-        // echo "<hr>";
-        // $datas= json_decode( json_encode($datas), true);
-        //     print_r($datas);
-        //     print_r($request->all());
-
-        // return 1;
-
+      
 
         // return $request->all();
         if(empty($TempData) || $TempData['export_status']==1){
