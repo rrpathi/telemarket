@@ -35,29 +35,6 @@
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
-               <div class="col-sm-6">
-                  <div class="form-group">
-                     <label for="inputphone" class="control-label"><span class="asterisk">Email</span></label>
-                     <input type="email" class="form-control" name="email" id="inputphone" required="" >
-                     <div class="help-block with-errors"></div>
-                  </div>
-               </div>
-            </div>
-            <div class="row mrg-0">
-               <div class="col-sm-6">
-                  <div class="form-group">
-                     <label class="control-label"><span class="asterisk">Mobile Number</span></label>
-                     <input type="tel" id="mobilenumber" name="mobilenumber" class="form-control phone" onkeypress="return isNumberKey(event)" value="{{ old('mobilenumber') }}" maxlength="15"/>
-                     <div class="help-block with-errors"></div>
-                  </div>
-               </div>
-               <div class="col-sm-6">
-                  <div class="form-group">
-                     <label class="control-label"><span class="asterisk"> Password</span></label>
-                     <input type="password" name="password" class="form-control" required="">
-                     <div class="help-block with-errors"></div>
-                  </div>
-               </div>
             </div>
             <div class="col-12">
             <div class="form-group">

@@ -13,15 +13,10 @@ class CustomerController extends Controller
     public  function  store(Request $request){
         $this->validate(request(),[
             'name'=>'required',
-            'email'=>'required|unique:customers',
-            'mobilenumber'=>'required',
-            'password'=>'required',
         ]);
         Customers::create([
             'name'=>request('name'),
-            'email'=>request('email'),
-            'mobilenumber'=>request('mobilenumber'),
-            'password'=>bcrypt(request('password')),
+           
         ]);
         return back()->with('success','New Customer Created Successfully');
     }
@@ -38,8 +33,6 @@ class CustomerController extends Controller
   public function updateCustomer($id,Request $request){
         $staff = Customers::findOrfail($id);
         $staff->name = request('name');
-        $staff->email = request('email');
-        $staff->mobilenumber = request('mobilenumber');
         $staff->save();
         return back()->with('success','Customer  Updated Successfully');
     }

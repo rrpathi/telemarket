@@ -31,23 +31,8 @@
                                 <div class="help-block with-errors"></div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="inputphone" class="control-label">Email</label>
-                                <input type="email" value="{{$datas->email}}"   class="form-control" name="email" id="inputphone" required="" readonly="" >
-                                <div class="help-block with-errors"></div>
-                            </div>
-                        </div>
                     </div>
                     <div class="row mrg-0">
-
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="control-label">Mobile Number</label>
-                                <input type="tel" id="mobilenumber" name="mobilenumber" class="form-control phone" onkeypress="return isNumberKey(event)" value="{{$datas->mobilenumber}}" maxlength="15" readonly/>
-                                <div class="help-block with-errors"></div>
-                            </div>
-                        </div>
                 </div>
                     <div class="col-12">
                         <div class="form-group">

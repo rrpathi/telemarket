@@ -23,8 +23,6 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Mobile Number</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -33,8 +31,6 @@
                 @foreach($datas as $data)
                 <tr>
                     <td>{{ $data->name }}</td>
-                    <td>{{ $data->email }}</td>
-                    <td>{{ $data->mobilenumber }}</td>
                     <td>
                         <form action="{{ route('admin.destory_customer', $data->id) }}" method="POST">
                            {{ csrf_field() }}
