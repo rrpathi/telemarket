@@ -18,7 +18,7 @@ class CreateTempDatasTable extends Migration
             $table->integer('customer_id');
             $table->integer('customer_count');
             $table->integer('remaining_count');
-            $table->integer('export_status');
+            $table->integer('export_status')->default(0);
             $table->timestamps();
         });
     }
