@@ -39,6 +39,7 @@
 </div>
 <!-- Wrapper -->
 @yield('script')
+@yield('scriptOnload')
 
 </body>
 </html>

@@ -43,3 +43,4 @@ Route::post('/export','ExportController@export')->name('export-data');
 Route::get('/vendorcode/add', 'VendorCodeController@index');
 Route::post('/vendorcode/add', 'VendorCodeController@store');
 
+Route::get('/export/{id}/edit','ExportController@editExport');
