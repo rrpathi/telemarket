@@ -19,7 +19,7 @@
     <!-- form -->
 <div class="row">
    <div class="col-md-12 col-sm-12">
-      <form data-toggle="validator" id="#" class="padd-20" method="post" action="#" enctype="multipart/form-data">
+      <form data-toggle="validator" id="#" class="padd-20" method="post" action="{{ route('admin.update_export',$export_history->id) }}" enctype="multipart/form-data">
             {{ csrf_field() }}
          <div class="card">
             <div class="row page-titles">
@@ -33,7 +33,7 @@
                  <div class="col-sm-2">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Customer Name</span></label>
-                     <select class="form-control" id = "exportCustomer"  name="customer_id" required="">
+                     <select class="form-control" id = "exportCustomer"  name="customer_id" required="" disabled="">
                         <option value="">Select Customer</option>
                         @foreach($customers as $customer)
                         <option value="{{ $customer->id }}" <?php if( $customer->id==$export_history->customer_id){echo "selected";} ?>>{{ ucfirst($customer->name) }}</option>
@@ -45,7 +45,7 @@
                <div class="col-sm-2">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Customer Count</span></label>
-                     <input type="number" class="form-control" name="customer_count" min="0"  id="CustomerCount" value="{{$TempData['0']->remaining_count}}"  required="" >
+                     <input type="number" class="form-control" name="customer_count" min="0"  id="CustomerCount" value="{{$TempData['0']->remaining_count}}"  required="" disabled="" >
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
@@ -149,18 +149,12 @@
     $( window ).on("load", function() {
       setTimeout(function() {
         $('.category_change').trigger('change');
-        var category =$("#category option[value='<?php echo $export_history->category ?>']").attr('selected', 'selected');
-
-        $( '#category' ).find('option[value="salaried"]').attr('selected','selected');
-
-        $('.export_change').trigger('change');
-
-
-        var vendor_code=$("#vendor_code option[value='<?php echo $export_history->vendor_code ?>']").attr('selected', 'selected');
-        $('.count_value').trigger('change');
-
-        // console.log('vendor_code: '+vendor_code+' category : '+category);
-          // console.log(category);
+          setTimeout(function() {
+            $("#category option[value='<?php echo $export_history->category ?>']").attr('selected', 'selected');
+            $("#vendor_code option[value='<?php echo $export_history->vendor_code ?>']").attr('selected', 'selected');
+            $('.export_change').trigger('change');
+          }, 3000);
+            $('.export_change').trigger('change');
       }, 100);
   });
 });

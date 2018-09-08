@@ -62,7 +62,10 @@ class ExportController extends Controller
 
    public function customerExportCount(){
         if (!empty(request()->customer_id)) {
-            $TempData = TempData::Where([['customer_id',request()->customer_id],['export_status',0]])->orderBy('id', 'DESC')->first();
+           $TempData = TempData::Where([['customer_id',request()->customer_id],['export_status',0]])->orderBy('id', 'DESC')->first();
+           if(empty($TempData)){
+            return '';
+           }
             // return $TempData['remaining_count'];
              $exportHistoryData=ExportHistory::Where([['temp_datas_id',$TempData['id']]])->get();
              $table = '<table class="table"><thead>
@@ -76,17 +79,25 @@ class ExportController extends Controller
     </thead>
     <tbody>';
              foreach ($exportHistoryData as $key => $value) {
-                $table = $table.'<tr><td>'.$value['location'].'</td><td>'.$value['category'].'</td><td>'.$value['vendor_code'].'</td><td>'.$value['from_count'].'</td><td>'.$value['to_count'].'</td><td>'.$value['export_count'].'</td><td><a href="export/'.$value['id'].'/edit" class="btn btn-default">Edit</a><button class="btn btn-default">Delete</button></td></tr>';
-                 
+                $table = $table.'<tr><td>'.$value['location'].'</td><td>'.$value['category'].'</td><td>'.$value['vendor_code'].'</td><td>'.$value['from_count'].'</td><td>'.$value['to_count'].'</td><td>'.$value['export_count'].'</td><td>
+                <form action="'. route("admin.destory_export", $value["id"]) .'" method="POST">'.
+                           csrf_field().'
+                           <input type="hidden" name="_method" value="DELETE">
+
+                <a href="export/'.$value['id'].'/edit"  class="btn btn-default">Edit</a>
+
+                <button onclick="return confirm("Are you sure?")" class="btn btn-default">Delete</button>
+                </form>
+                </td></tr>';
              }
-
-             $table = $table.'</tbody></table>';
-             $finalDatas['count']=$TempData['remaining_count'];
-             $finalDatas['table']=$table;
-            return $finalDatas;
-
-
-
+            $table = $table.'</tbody></table>';
+            $finalDatas['count']=$TempData['remaining_count'];
+            $finalDatas['table']=$table;
+            if(empty($exportHistoryData)){
+                return "";
+            }else{
+                return $finalDatas;
+            }
         }
    }
 
@@ -121,8 +132,6 @@ class ExportController extends Controller
                 }
            }
         }
-
-      
 
         // return $request->all();
         if(empty($TempData) || $TempData['export_status']==1){
@@ -202,5 +211,109 @@ class ExportController extends Controller
             }
         }
         return view('admin.export.edit',compact('customers','locations', 'datas','export_history','TempData'));
+    }
+
+// DELETE EXPORT 
+    public function deleteExport($id){
+        $export_history = ExportHistory::findOrFail($id);
+        $temp_datas_id=$export_history->temp_datas_id;
+        $export_count=$export_history->export_count;
+        $data= TempData::findOrfail($temp_datas_id);
+        $data ->remaining_count=$data['remaining_count']+$export_history->export_count;
+        $data->save();
+        ExportHistory::where('id', $id)->delete();
+        return back()->with('success','Data Deleted Sucessfully');
+    }
+
+
+    public function updateExport(Request $request,$id){
+        // return $request;
+        $export_history_data = ExportHistory::findOrFail($id);
+        $TempTableData = TempData::Where([['id',$export_history_data['temp_datas_id']]])->first();
+
+        // CHECK THE REMAINING COUNT EXCEED
+        if($TempTableData->remaining_count+$export_history_data->export_count-$request->export_count<0){
+            return back()->with('danger','Your Data Limit is Exceed');
+        }
+        // CHECK EXPORT STATUS
+        if($TempTableData->export_status==1){
+            return back()->with('danger','Already Excel Exported');
+        }
+
+        // REMOVE THIS DATA TO CHECK IS BETWEEN
+         $exportHistoryData=ExportHistory::Where([['temp_datas_id',$TempTableData['id']],['vendor_code',$request->vendor_code],['location',$request->location],['category',$request->category]])->get();
+        foreach ($exportHistoryData as $key => $value) {
+            if ($value->id==$id) {
+                unset($exportHistoryData[$key]);
+            }
+        }
+        // return $exportHistoryData;
+         if(!empty($exportHistoryData)){
+                foreach ($exportHistoryData as $key => $export) {
+                    $datas=$export;
+                    if(($export['from_count']>=$request->from_count) && ($export['from_count']<=$request->to_count)){
+                        return back()->with('danger','Already Data Insert Form : '.$export['from_count'].' .To count '.$export['to_count']);
+                        // echo "count from in";
+
+                    }elseif(($export['to_count']>=$request->from_count) && ($export['to_count']<=$request->to_count)){
+                         return back()->with('danger','Already Data Insert Form : '.$export['from_count'].' .To count '.$export['to_count']);
+                        // echo "count to in";
+
+                    }elseif(($export['from_count']<=$request->from_count) && ($request->to_count<=$export['to_count'])){
+                         return back()->with('danger','Already Data Insert Form : '.$export['from_count'].' .To count '.$export['to_count']);
+                        // echo "export Center content";
+
+                    }elseif(($export['from_count']>=$request->from_count) && ($request->to_count>=$export['to_count'])){
+                         return back()->with('danger','Already Data Insert Form : '.$export['from_count'].' .To count '.$export['to_count']);
+                        // echo "on outer content";
+
+                    }
+                    
+                }
+           }
+
+        $remaining_updated_data=$TempTableData->remaining_count+$export_history_data->export_count-$request->export_count;
+            if($remaining_updated_data>=0){
+                $data = ExportHistory::find($id);
+                $data ->location =  request('location');
+                $data ->category =  request('category');
+                $data ->vendor_code =  request('vendor_code');
+                $data ->from_count =  request('from_count');
+                $data ->to_count =  request('to_count');
+                $data ->export_count =  request('export_count');
+                if($data->save()){
+                    $updateTempData = TempData::findOrFail($export_history_data->temp_datas_id);
+                    $updateTempData ->remaining_count =  $remaining_updated_data;
+                    $updateTempData->save();
+                }
+            }
+
+        // EXPORT MODULE
+        if($remaining_updated_data==0){
+            $data = TempData::find($export_history_data->temp_datas_id);
+            $data['export_status']=1;
+            $data->save(); //update export status to tempdata table
+            $exportHistoryData= ExportHistory::Where([['temp_datas_id',$TempTableData->id]])->get();//get all data from export table
+              foreach ($exportHistoryData as $key => $value) {
+                    $skip = $value['from_count']-1;
+                    $take = $value['to_count']-$value['from_count']+1;
+                    $exportdata[] = DB::table($value['location'])->select('mobile_no','name','database_type','category','salary','email_id','company_name','vendor_name')->Where([['vendor_id',$value['vendor_code']],['category',$value['category']]])->skip($skip)->take($take)->get()->toArray();
+              }
+              foreach ($exportdata as $key => $value) {
+                foreach ($value as $key => $value1) {
+                    $finalData[] =json_decode( json_encode($value1), true);
+                }
+              }
+            $exportdata= json_decode( json_encode($finalData), true);
+             Excel::create('test',function($excel) use ($exportdata){
+               $excel->sheet('Sheet 1',function($sheet) use ($exportdata){
+                   $sheet->fromArray($exportdata);
+               });
+            })->export('xlsx');
+             return back();
+        }
+        else{
+            return back()->with('success','Data Submitted Sucessfully'); 
+        }
     }
 }
