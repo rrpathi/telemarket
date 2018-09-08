@@ -49,16 +49,23 @@ $(document).ready(function(){
 			url:'/admin/customer_export_count',
 			data:{customer_id:exportCustomer},
 			success: function(data) {
-				console.log(data);
-				if(data['count']!=''){
-					$("#showTableData").html(data.table);
-					$('#CustomerCount').val(data.count);
-					$('#CustomerCount').attr('readonly', true);
-				}else{
+				// console.log(data);
+				if(data ==''){
+					$("#showTableData").html('');
+					$('#CustomerCount').val('');
 					$('#CustomerCount').attr('readonly', false);
+				}else{
+					if(data['count']!=''){
+						$("#showTableData").html(data.table);
+						$('#CustomerCount').val(data.count);
+						$('#CustomerCount').attr('readonly', true);
+					}else{
+						$("#showTableData").html('');
+						$('#CustomerCount').val('');
+						$('#CustomerCount').attr('readonly', false);
+					}
 				}
 			}
 		});
 	});
-
 });

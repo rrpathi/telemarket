@@ -44,3 +44,7 @@ Route::get('/vendorcode/add', 'VendorCodeController@index');
 Route::post('/vendorcode/add', 'VendorCodeController@store');
 
 Route::get('/export/{id}/edit','ExportController@editExport');
+
+Route::delete('/exportDelete/{id}','ExportController@deleteExport')->name('destory_export');
+Route::post('/exportUpdate/{id}/update','ExportController@updateExport')->name('update_export');
+
