@@ -95,8 +95,7 @@ class AdminStaffController extends Controller
 
    public function contact(){
         $datas = VendorCode::all();
-
-    return view('admin.contacts.add_contact', compact('datas'));
+        return view('admin.contacts.add_contact', compact('datas'));
    }
 
   
