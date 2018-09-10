@@ -61,18 +61,26 @@ class ContactController extends Controller
                     // location Array Excel 
                     foreach ($exceldata as $key => $value) {
                         // if ($value['name']!=""&&$value['mobile']!=""&&$value['location']!="") {
-                        if (strlen($value['mobile_no'])==10 && !in_array($value['mobile_no'], $bloklist)) {
+                        if (!in_array($value['mobile_no'], $bloklist)) {
+
                             $place[]                                                  = $value['location'];
                             $locationArray[$value['location']][$key]['name']          = $value['name'];
                             $locationArray[$value['location']][$key]['database_type'] =strtolower($value['database_type']);
                             $locationArray[$value['location']][$key]['category']      =strtolower($value['category']);
-                            $locationArray[$value['location']][$key]['mobile_no']     = $value['mobile_no'];
+                            $mobile = preg_replace('/[^A-Za-z0-9\-]/', '', $value['mobile_no']);
+                            if(strlen($mobile)==10){
+                                $locationArray[$value['location']][$key]['mobile_no']     = $mobile;
+                            }else{
+                                $locationArray[$value['location']][$key]['telephone']     = $mobile;
+                            }
                             $locationArray[$value['location']][$key]['salary']        = $value['salary'];
                             $locationArray[$value['location']][$key]['email_id']      = $value['email_id'];
                             $locationArray[$value['location']][$key]['company_name']  = $value['company_name'];
+                        
                         }
                         // }
                     }
+                    
                     
                     // echo "<pre>";
                     // print_r($locationArray);
@@ -102,7 +110,8 @@ class ContactController extends Controller
                             Schema::create($tablename, function($table) use ($newtableschema)
                             {
                                 $table->increments('id')->unique(); //primary key 
-                                $table->string('mobile_no')->unique();
+                                $table->string('mobile_no')->unique()->nullable();
+                                $table->string('telephone')->unique()->nullable();
                                 foreach ($newtableschema['colnames'] as $col) {
                                     $table->string($col)->nullable();
                                 }
@@ -112,7 +121,7 @@ class ContactController extends Controller
                     }
                     
                     
-                    
+                     $eluminatedData=0;$insertedData=0;//COUNT DATA
                     // DATA INSERT
                     foreach ($locationArray as $location => $locationData) {
                         $location    = strtolower($location);
@@ -132,16 +141,17 @@ class ContactController extends Controller
                                 $value['vendor_name'] = $vendor_name->name;
                                 $value['vendor_id']   = $request->vendor_code;
                                 $insertData           = DB::table($location)->insert($value);
-                                $last_id++;
+                                $last_id++;$insertedData++;
                             }
                             catch (\Illuminate\Database\QueryException $e) {
+                                $eluminatedData++;
                             }
                         }
                     }
-                    return back()->with('success','Contact Created Sucessfully');
+                    return back()->with('success','Contact Created Sucessfully, Inserted Data = '.$insertedData.' Data Eluminated = '.$eluminatedData);
                 }
             } else {
-                return back()->with('error', 'Check File Formate');
+                return back()->with('danger', 'Check File Formate');
             }
         }
     }

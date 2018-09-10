@@ -86,7 +86,7 @@ class ExportController extends Controller
 
                 <a href="export/'.$value['id'].'/edit"  class="btn btn-default">Edit</a>
 
-                <button onclick="return confirm("Are you sure?")" class="btn btn-default">Delete</button>
+                <button onclick="return confirm(\'Are you sure?\')" class="btn btn-default">Delete</button>
                 </form>
                 </td></tr>';
              }
@@ -169,7 +169,7 @@ class ExportController extends Controller
               foreach ($exportHistoryData as $key => $value) {
                     $skip = $value['from_count']-1;
                     $take = $value['to_count']-$value['from_count']+1;
-                    $exportdata[] = DB::table($value['location'])->select('mobile_no','name','database_type','category','salary','email_id','company_name','vendor_name')->Where([['vendor_id',$value['vendor_code']],['category',$value['category']]])->skip($skip)->take($take)->get()->toArray();
+                    $exportdata[] = DB::table($value['location'])->select('name','database_type','category','salary','mobile_no','telephone','email_id','company_name','vendor_name')->Where([['vendor_id',$value['vendor_code']],['category',$value['category']]])->skip($skip)->take($take)->get()->toArray();
               }
               foreach ($exportdata as $key => $value) {
                 foreach ($value as $key => $value1) {
@@ -177,7 +177,7 @@ class ExportController extends Controller
                 }
               }
             $exportdata= json_decode( json_encode($finalData), true);
-             Excel::create('test',function($excel) use ($exportdata){
+             Excel::create('Greefi-Tech',function($excel) use ($exportdata){
                $excel->sheet('Sheet 1',function($sheet) use ($exportdata){
                    $sheet->fromArray($exportdata);
                });
@@ -297,7 +297,7 @@ class ExportController extends Controller
               foreach ($exportHistoryData as $key => $value) {
                     $skip = $value['from_count']-1;
                     $take = $value['to_count']-$value['from_count']+1;
-                    $exportdata[] = DB::table($value['location'])->select('mobile_no','name','database_type','category','salary','email_id','company_name','vendor_name')->Where([['vendor_id',$value['vendor_code']],['category',$value['category']]])->skip($skip)->take($take)->get()->toArray();
+                    $exportdata[] = DB::table($value['location'])->select('name','database_type','category','salary','mobile_no','telephone','email_id','company_name','vendor_name')->Where([['vendor_id',$value['vendor_code']],['category',$value['category']]])->skip($skip)->take($take)->get()->toArray();
               }
               foreach ($exportdata as $key => $value) {
                 foreach ($value as $key => $value1) {
@@ -305,7 +305,7 @@ class ExportController extends Controller
                 }
               }
             $exportdata= json_decode( json_encode($finalData), true);
-             Excel::create('test',function($excel) use ($exportdata){
+             Excel::create('Greefi-Tech',function($excel) use ($exportdata){
                $excel->sheet('Sheet 1',function($sheet) use ($exportdata){
                    $sheet->fromArray($exportdata);
                });
@@ -313,7 +313,7 @@ class ExportController extends Controller
              return back();
         }
         else{
-            return back()->with('success','Data Submitted Sucessfully'); 
+            return redirect('admin/export')->with('success', 'Export Data updated Sucessfully!');
         }
     }
 }
