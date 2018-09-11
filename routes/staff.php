@@ -15,3 +15,27 @@ Route::get('/contacts/add', 'staff\TotalController@contactForm');
 Route::post('/contacts/add', 'ContactController@import');
 
 
+// Route::get('/export','ExportController@index');
+Route::get('/export','staff\ExportController@index');
+Route::post('/export','staff\ExportController@export')->name('export-data');
+
+
+// export edit
+Route::get('/export/{id}/edit','staff\ExportController@editExport');
+Route::post('/export/{id}/edit','staff\ExportController@updateExport')->name('update_export_data');
+
+
+
+
+
+Route::get('/export-data','staff\ExportController@dataExport');
+Route::get('/customer_export_status','staff\ExportController@exportStatus');
+Route::post('/export-data','staff\ExportController@exportDataExcel')->name('export-data-staff');
+
+
+
+
+
+
+
+

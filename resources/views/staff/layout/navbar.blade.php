@@ -71,19 +71,23 @@
                          <li>
                             <a href="{{ url('/staff/contacts/add') }}">Add Database</a>
                         </li>
-                        
-
-
                     </ul>
                 </li>
-                 <li class="nav-item @yield('export')" data-toggle="tooltip" data-placement="right" title="Projects">
-                    <a class="nav-link" href="{{ url('/admin/export') }}">
-                        <i class="ti i-cl-2 ti-dashboard"></i>
+
+                <li class="nav-item @yield('export')" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#export" data-parent="#exampleAccordion">
+                        <i class="ti i-cl-12 ti-settings"></i>
                         <span class="nav-link-text">Export</span>
                     </a>
+                    <ul class="sidenav-second-level collapse" id="export">
+                         <li>
+                            <a href="{{ url('/staff/export') }}">Add Export</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/staff/export-data') }}">Export Data</a>
+                        </li>
+                    </ul>
                 </li>
-
-               
             </ul>
         </div>
         <!-- =============== End Side Menu ============== -->

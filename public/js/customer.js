@@ -68,4 +68,34 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	$('body').on('change', '#exportCustomerData', function() {
+		var exportCustomer = $("#exportCustomerData option:selected").val();
+		$.ajax({
+			type : "get",
+			url:'/staff/customer_export_status',
+			data:{customer_id:exportCustomer},
+			success: function(data) {
+				if(data.remaining_count==0){
+					// console.log(data);
+					if(data.approvedStatus==0){
+						var status = "Waiting for Approval";
+						$('#exportButtonStaff').attr("disabled", "disabled");
+					}else if(data.approvedStatus==1){
+						var status = "Approved";
+						$('#exportButtonStaff').removeAttr("disabled");
+					}else{
+						var status = "Rejected";
+						$('#exportButtonStaff').attr("disabled", "disabled");
+					}
+					$('#exportStatus').val(status);
+					$('#CustomerDisctiption').val(data.discription);
+				}else{
+					$('#exportStatus').val('Data Nill For Export');
+					$('#CustomerDisctiption').val('');
+					$('#exportButtonStaff').attr("disabled", "disabled");
+				}
+			}
+		});
+	});
 });
