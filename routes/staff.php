@@ -26,6 +26,9 @@ Route::post('/export/{id}/edit','staff\ExportController@updateExport')->name('up
 
 
 
+// ajax edit and delete data
+Route::get('/customer_export_count','staff\ExportController@customerExportCount');
+Route::delete('/destory_export/{id}/delete','staff\ExportController@deleteExport')->name('destory_export');
 
 
 Route::get('/export-data','staff\ExportController@dataExport');

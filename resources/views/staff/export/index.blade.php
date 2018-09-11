@@ -31,7 +31,7 @@
                <div class="col-sm-2">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Customer Name</span></label>
-                     <select class="form-control" id = "exportCustomer"  name="customer_id" required="">
+                     <select class="form-control ExportsCustomer"   name="customer_id" required="">
                         <option value="">Select Customer</option>
                         @foreach($customers as $customer)
                         <option value="{{ $customer->id }}">{{ ucfirst($customer->name) }}</option>
@@ -135,7 +135,7 @@
             </div>
          </div>
       </form>
-        <div id="showTableData"></div>
+        <div id="showTableDataS"></div>
             {{-- <button id="form-button" class="btn gredient-btn">Add More</button> --}}
    </div>
 </div>

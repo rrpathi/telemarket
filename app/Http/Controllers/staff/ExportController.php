@@ -253,4 +253,60 @@ class ExportController extends Controller
         return back()->with('success', 'Export Data updated Sucessfully!');
     }
 
+
+
+
+    public function customerExportCount(){
+        if (!empty(request()->customer_id)) {
+           $TempData = TempData::Where([['customer_id',request()->customer_id],['export_status',0]])->orderBy('id', 'DESC')->first();
+           if(empty($TempData)){
+            return '';
+           }
+            // return $TempData['remaining_count'];
+             $exportHistoryData=ExportHistory::Where([['temp_datas_id',$TempData['id']]])->get();
+             $table = '<table class="table"><thead>
+        <th>Location</th>
+        <th>Category</th>
+        <th>Vendor Code</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Export Count</th>
+        <th>Action</th>
+    </thead>
+    <tbody>';
+             foreach ($exportHistoryData as $key => $value) {
+                $table = $table.'<tr><td>'.$value['location'].'</td><td>'.$value['category'].'</td><td>'.$value['vendor_code'].'</td><td>'.$value['from_count'].'</td><td>'.$value['to_count'].'</td><td>'.$value['export_count'].'</td><td>
+                <form action="'. route("staff.destory_export", $value["id"]) .'" method="POST">'.
+                           csrf_field().'
+                           <input type="hidden" name="_method" value="DELETE">
+
+                <a href="export/'.$value['id'].'/edit"  class="btn btn-default">Edit</a>
+
+                <button onclick="return confirm(\'Are you sure?\')" class="btn btn-default">Delete</button>
+                </form>
+                </td></tr>';
+             }
+            $table = $table.'</tbody></table>';
+            $finalDatas['count']=$TempData['remaining_count'];
+            $finalDatas['table']=$table;
+            if(empty($exportHistoryData)){
+                return "";
+            }else{
+                return $finalDatas;
+            }
+        }
+   }
+
+
+    public function deleteExport($id){
+        $export_history = ExportHistory::findOrFail($id);
+        $temp_datas_id=$export_history->temp_datas_id;
+        $export_count=$export_history->export_count;
+        $data= TempData::findOrfail($temp_datas_id);
+        $data ->remaining_count=$data['remaining_count']+$export_history->export_count;
+        $data->save();
+        ExportHistory::where('id', $id)->delete();
+        return back()->with('success','Data Deleted Sucessfully');
+    }
+
 }
