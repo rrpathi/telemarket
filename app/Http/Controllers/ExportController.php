@@ -316,4 +316,36 @@ class ExportController extends Controller
             return redirect('admin/export')->with('success', 'Export Data updated Sucessfully!');
         }
     }
+
+    public function ExportApproval(Request $request){
+        $customers =Customers::all();
+        return view('admin.export.exportApproval',compact('customers')); 
+    }
+
+    public function getExportApprovalStatus(Request $request){
+        $TempData = TempData::Where([['customer_id',request()->customer_id]])->orderBy('id', 'DESC')->first();
+        if(!empty($TempData)){
+            if($TempData->remaining_count==0 && $TempData->export_status==0){
+                return $TempData;
+            }else{
+                return '';
+            }
+        }
+    }
+
+
+
+
+    public function updateApprovalStatus(Request $request){
+        $TempData = TempData::Where([['customer_id',request()->customer_id]])->orderBy('id', 'DESC')->first();
+        $data = TempData::find($TempData->id);
+        $data['approvedStatus']=$request->approvedStatus;
+        $data['discription']=$request->discription;
+        if($data->save()){
+            return back()->with('success','Export Status Updated Successfully!!');
+        }else{
+            return back()->with('danger','Error on update..');
+            
+        }
+    }
 }

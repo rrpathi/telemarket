@@ -98,4 +98,37 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+
+
+	$('body').on('change', '#exportApproval', function() {
+		var exportApproval = $("#exportApproval").val();
+		$.ajax({
+			type : "get",
+			url:'/admin/getExportApprovalStatus',
+			data:{customer_id:exportApproval},
+			success: function(data) {
+					// console.log(data);
+					$('input[name=approvedStatus]').prop("checked", false);
+					$('#CustomerDisctiption').val('');
+				if(data!=''){
+					$('#CustomerDisctiption').attr("disabled", false);
+					$('#adminApproved').attr("disabled", false);
+					$('#adminDisapproved').attr("disabled", false);
+						if(data.approvedStatus==1){
+							$('#adminApproved').prop("checked", true);
+							$('#CustomerDisctiption').val(data.discription);
+						}else if(data.approvedStatus==2){
+							$('#adminDisapproved').prop("checked", true);
+							$('#CustomerDisctiption').val(data.discription);
+						}
+				}else{
+					$('#adminApproved').attr("disabled", "disabled");
+					$('#adminDisapproved').attr("disabled", "disabled");
+					$('#CustomerDisctiption').attr("disabled", "disabled");
+					$('#CustomerDisctiption').val('');
+				}
+			}
+		});
+	});
 });

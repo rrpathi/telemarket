@@ -48,3 +48,11 @@ Route::get('/export/{id}/edit','ExportController@editExport');
 Route::delete('/exportDelete/{id}','ExportController@deleteExport')->name('destory_export');
 Route::post('/exportUpdate/{id}/update','ExportController@updateExport')->name('update_export');
 
+// export admin approval
+Route::get('/exportApproval','ExportController@ExportApproval');
+Route::get('/getExportApprovalStatus','ExportController@getExportApprovalStatus');
+Route::post('/update_approval_status','ExportController@updateApprovalStatus')->name('update_approval_status');
+
+
+
+

@@ -37,8 +37,6 @@
                         <li>
                             <a href="{{ url('/admin/staff/') }}">View Staff</a>
                         </li>
-
-
                     </ul>
                 </li>
 
@@ -54,7 +52,6 @@
                         {{-- <li>
                             <a href="{{ url('/admin/vendorcode/') }}">View VendorCode</a>
                         </li>
-
  --}}
                     </ul>
                 </li>
@@ -71,8 +68,6 @@
                         <li>
                             <a href="{{ url('/admin/customer/') }}">View Customer</a>
                         </li>
-
-
                     </ul>
                 </li>
 
@@ -88,16 +83,38 @@
                          <li>
                             <a href="{{ url('/admin/contacts/add') }}">Add Database</a>
                         </li>
-                        
-
-
                     </ul>
                 </li>
-                 <li class="nav-item @yield('export')" data-toggle="tooltip" data-placement="right" title="Projects">
-                    <a class="nav-link" href="{{ url('/admin/export') }}">
-                        <i class="ti i-cl-2 ti-dashboard"></i>
+
+                   <li class="nav-item  @yield('export')" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Export" data-parent="#exampleAccordion">
+                        <i class="ti i-cl-12 ti-settings"></i>
                         <span class="nav-link-text">Export</span>
                     </a>
+                    <ul class="sidenav-second-level collapse" id="Export">
+                         <li>
+                            <a href="{{ url('/admin/export') }}">Export Data</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/admin/exportApproval') }}">Export Approval</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="nav-item @yield('report')" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Report" data-parent="#exampleAccordion">
+                        <i class="ti i-cl-12 ti-settings"></i>
+                        <span class="nav-link-text">Report</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="Report">
+                         <li>
+                            <a href="#">Add Staff</a>
+                        </li>
+                        <li>
+                            <a href="#">View Staff</a>
+                        </li>
+                    </ul>
                 </li>
 
                
