@@ -69,6 +69,34 @@ $(document).ready(function(){
 		});
 	});
 
+ // for staffs re coded
+	$('body').on('change', '.ExportsCustomer', function() {
+		var ExportsCustomer = $(".ExportsCustomer option:selected").val();
+		$.ajax({
+			type : "get",
+			url:'/staff/customer_export_count',
+			data:{customer_id:ExportsCustomer},
+			success: function(data) {
+				console.log(data);
+					if(data ==''){
+					$("#showTableDataS").html('');
+					$('#CustomerCount').val('');
+					$('#CustomerCount').attr('readonly', false);
+				}else{
+					if(data['count']!=''){
+						$("#showTableDataS").html(data.table);
+						$('#CustomerCount').val(data.count);
+						$('#CustomerCount').attr('readonly', true);
+					}else{
+						$("#showTableDataS").html('');
+						$('#CustomerCount').val('');
+						$('#CustomerCount').attr('readonly', false);
+					}
+				}
+			}
+		});
+	});
+
 	$('body').on('change', '#exportCustomerData', function() {
 		var exportCustomer = $("#exportCustomerData option:selected").val();
 		$.ajax({
