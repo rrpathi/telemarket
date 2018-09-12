@@ -109,10 +109,7 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="Report">
                          <li>
-                            <a href="#">Add Staff</a>
-                        </li>
-                        <li>
-                            <a href="#">View Staff</a>
+                            <a href="#">Reports -</a>
                         </li>
                     </ul>
                 </li>

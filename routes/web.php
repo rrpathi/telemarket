@@ -34,6 +34,7 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::group(['prefix' => 'staff'], function () {
+  Route::get('/', 'StaffAuth\LoginController@showLoginForm')->name('login');
   Route::get('/login', 'StaffAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'StaffAuth\LoginController@login');
   Route::post('/logout', 'StaffAuth\LoginController@logout')->name('logout');
