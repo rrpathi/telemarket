@@ -13,6 +13,8 @@ class DashboardController extends Controller
         $this->middleware('admin');
     }
      public function Staff(){
+     	$totalStaffs=0;
+     	$totalCustomers=0;
         $totalStaffs = Staff::all()->count();
         $totalCustomers = customers::all()->count();
         // $data['unapproved_staff'] = Staff::where('verified','>',0)-> get()->count();
