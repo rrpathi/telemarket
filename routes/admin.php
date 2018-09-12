@@ -52,7 +52,3 @@ Route::post('/exportUpdate/{id}/update','ExportController@updateExport')->name('
 Route::get('/exportApproval','ExportController@ExportApproval');
 Route::get('/getExportApprovalStatus','ExportController@getExportApprovalStatus');
 Route::post('/update_approval_status','ExportController@updateApprovalStatus')->name('update_approval_status');
-
-
-
-

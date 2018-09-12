@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Staff;
+use App\customers;
+
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,10 +13,10 @@ class DashboardController extends Controller
         $this->middleware('admin');
     }
      public function Staff(){
-     	// return "hello";
-        // $data['total_staff'] = Staff::all()->count();
+        $totalStaffs = Staff::all()->count();
+        $totalCustomers = customers::all()->count();
         // $data['unapproved_staff'] = Staff::where('verified','>',0)-> get()->count();
-         return view('admin.home', compact('data'));
+         return view('admin.home', compact('totalStaffs','totalCustomers'));
     }
 
 }

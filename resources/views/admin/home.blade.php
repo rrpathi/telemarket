@@ -14,16 +14,15 @@
     <!-- Title & Breadcrumbs-->
 
     <div class="row">
-
         <div class="col-md-3 col-sm-6">
             <div class="card">
                 <div class="card-body">
                     <div class="float-right">
-                       <i class="icon ti-layout-grid2 gredient-cl font-30"></i>
+                       <i class="icon  gredient-cl font-30">{{$totalStaffs}}</i>
                     </div>
                     <div class="widget-detail">
                         <h4 class="mb-1"></h4>
-                        <span>Total Staffs</span>
+                        <span>Total Staffs </span>
                     </div>
                 </div>
             </div>
@@ -33,7 +32,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="float-right">
-                        <i class="icon ti-medall gredient-cl font-30"></i>
+                        <i class="icon gredient-cl font-30">{{$totalCustomers}}</i>
                     </div>
                     <div class="widget-detail">
                         <h4 class="mb-1"></h4>
