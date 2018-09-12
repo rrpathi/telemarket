@@ -24,8 +24,8 @@
             <form id="account-form" action="{{ url('/admin/password') }}" method="POST" style="display: none;">
                 {{ csrf_field() }}
             </form> --}}
-            <li><a class="dropdown-item" href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Logout</a></li>
-            <form id="logout-form" action="{{ url('/admin/logout') }}" method="POST" style="display: none;">
+            <li><a class="dropdown-item" href="{{ url('/staff/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Logout</a></li>
+            <form id="logout-form" action="{{ url('/staff/logout') }}" method="POST" style="display: none;">
                 {{ csrf_field() }}
             </form>
         </ul>

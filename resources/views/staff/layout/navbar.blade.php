@@ -97,7 +97,7 @@
         <!-- =============== End Search Bar ============== -->
 
         <!-- =============== Header Rightside Menu ============== -->
-        @include('admin.layout.user_nav')
+        @include('staff.layout.user_nav')
         <!-- =============== End Header Rightside Menu ============== -->
     </div>
 </nav>  

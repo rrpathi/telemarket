@@ -146,7 +146,7 @@
 @section('scriptOnload')
 <script type="text/javascript">
   $(document).ready(function(){
-    $( window ).on("load", function() {
+    // $( window ).on("load", function() {
       setTimeout(function() {
         $('.category_change').trigger('change');
           setTimeout(function() {
@@ -156,7 +156,7 @@
           }, 3000);
             $('.export_change').trigger('change');
       }, 100);
-  });
+  // });
 });
 </script>
 @endsection

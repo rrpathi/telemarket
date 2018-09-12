@@ -105,12 +105,41 @@ class ExportController extends Controller
         return view('staff.export.export_data',compact('customers'));
     }
 
-    // CHECK EXPORT STATUS
+    // CHECK EXPORT STATUS==========
     public function exportStatus(Request $request){
-    	// return $request;
-    	$TempData = TempData::Where([['customer_id',request()->customer_id]])->orderBy('id', 'DESC')->first();
-    	if(!empty($TempData) && $TempData->export_status==0){
-    		return $TempData;
+    $TempData = TempData::Where([['customer_id',request()->customer_id]])->orderBy('id', 'DESC')->first();
+    $exportHistoryData=ExportHistory::Where([['temp_datas_id',$TempData['id']]])->get();
+             $table = '<table class="table"><thead>
+        <th>Location</th>
+        <th>Category</th>
+        <th>Vendor Code</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Export Count</th>
+        <th>Action</th>
+    </thead>
+    <tbody>';
+             foreach ($exportHistoryData as $key => $value) {
+                $table = $table.'<tr><td>'.$value['location'].'</td><td>'.$value['category'].'</td><td>'.$value['vendor_code'].'</td><td>'.$value['from_count'].'</td><td>'.$value['to_count'].'</td><td>'.$value['export_count'].'</td><td>
+                <form action="'. route("staff.destory_export", $value["id"]) .'" method="POST">'.
+                           csrf_field().'
+                           <input type="hidden" name="_method" value="DELETE">
+
+                <a href="export/'.$value['id'].'/edit"  class="btn btn-default">Edit</a>
+
+                <button onclick="return confirm(\'Are you sure?\')" class="btn btn-default">Delete</button>
+                </form>
+                </td></tr>';
+             }
+            $table = $table.'</tbody></table>';
+            $finalDatas['table']=$table;
+            $finalDatas['tempData']=$TempData;
+    	if(!empty($TempData) && $TempData->export_status!=1){
+            if(empty($exportHistoryData)){
+                return "";
+            }else{
+                return $finalDatas;
+            }
     	}	
     }
 

@@ -104,23 +104,33 @@ $(document).ready(function(){
 			url:'/staff/customer_export_status',
 			data:{customer_id:exportCustomer},
 			success: function(data) {
-				if(data.remaining_count==0){
+				$('#ApprovalData').html('');
+				$('#exportStatus').val('');
+				$('#CustomerDisctiption').val('');
 					// console.log(data);
-					if(data.approvedStatus==0){
-						var status = "Waiting for Approval";
-						$('#exportButtonStaff').attr("disabled", "disabled");
-					}else if(data.approvedStatus==1){
-						var status = "Approved";
-						$('#exportButtonStaff').removeAttr("disabled");
+				if (data!='') {
+					if(data.tempData.remaining_count==0){
+						$('#ApprovalData').html(data.table);
+						if(data.tempData.approvedStatus==0){
+							var status = "Waiting for Approval";
+							$('#exportButtonStaff').attr("disabled", "disabled");
+						}else if(data.tempData.approvedStatus==1){
+							var status = "Approved";
+							$('#exportButtonStaff').removeAttr("disabled");
+						}else{
+							var status = "Rejected";
+							$('#exportButtonStaff').attr("disabled", "disabled");
+						}
+						$('#exportStatus').val(status);
+						$('#CustomerDisctiption').val(data.tempData.discription);
 					}else{
-						var status = "Rejected";
+						$('#ApprovalData').html('');
+						$('#exportStatus').val('Data Nill For Export');
+						$('#CustomerDisctiption').val('');
 						$('#exportButtonStaff').attr("disabled", "disabled");
 					}
-					$('#exportStatus').val(status);
-					$('#CustomerDisctiption').val(data.discription);
 				}else{
 					$('#exportStatus').val('Data Nill For Export');
-					$('#CustomerDisctiption').val('');
 					$('#exportButtonStaff').attr("disabled", "disabled");
 				}
 			}
@@ -136,25 +146,27 @@ $(document).ready(function(){
 			url:'/admin/getExportApprovalStatus',
 			data:{customer_id:exportApproval},
 			success: function(data) {
-					// console.log(data);
+					console.log(data.tempData);
 					$('input[name=approvedStatus]').prop("checked", false);
 					$('#CustomerDisctiption').val('');
 				if(data!=''){
+					$('#ApprovalData').html(data.table);
 					$('#CustomerDisctiption').attr("disabled", false);
 					$('#adminApproved').attr("disabled", false);
 					$('#adminDisapproved').attr("disabled", false);
-						if(data.approvedStatus==1){
+						if(data.tempData.approvedStatus==1){
 							$('#adminApproved').prop("checked", true);
-							$('#CustomerDisctiption').val(data.discription);
-						}else if(data.approvedStatus==2){
+							$('#CustomerDisctiption').val(data.tempData.discription);
+						}else if(data.tempData.approvedStatus==2){
 							$('#adminDisapproved').prop("checked", true);
-							$('#CustomerDisctiption').val(data.discription);
+							$('#CustomerDisctiption').val(data.tempData.discription);
 						}
 				}else{
 					$('#adminApproved').attr("disabled", "disabled");
 					$('#adminDisapproved').attr("disabled", "disabled");
 					$('#CustomerDisctiption').attr("disabled", "disabled");
 					$('#CustomerDisctiption').val('');
+					$('#ApprovalData').html('');
 				}
 			}
 		});
