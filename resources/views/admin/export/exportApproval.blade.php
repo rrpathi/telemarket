@@ -70,7 +70,7 @@
             </div>
          </div>
       </form>
-        <div id="showTableData"></div>
+        <div id="ApprovalData"></div>
             {{-- <button id="form-button" class="btn gredient-btn">Add More</button> --}}
    </div>
 </div>
