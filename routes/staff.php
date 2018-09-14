@@ -19,6 +19,14 @@ Route::post('/contacts/add', 'ContactController@import');
 Route::get('/export','staff\ExportController@index');
 Route::post('/export','staff\ExportController@export')->name('export-data');
 
+// vendor
+Route::get('/vendorcode/add', 'staff\vendorController@index');
+Route::post('/vendorcode/add', 'staff\vendorController@store');
+Route::get('/vendorcode','staff\vendorController@view');
+Route::get('vendorcode/edit/{id}', 'staff\vendorController@editVendor')->name('edit_vendor');
+Route::post('vendorcode/{id}/update', 'staff\vendorController@update_vendor')->name('update_vendor');
+
+
 
 // export edit
 Route::get('/export/{id}/edit','staff\ExportController@editExport');

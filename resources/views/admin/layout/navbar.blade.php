@@ -49,10 +49,10 @@
                          <li>
                             <a href="{{ url('/admin/vendorcode/add') }}">Add VendorCode</a>
                         </li>
-                        {{-- <li>
+                        <li>
                             <a href="{{ url('/admin/vendorcode/') }}">View VendorCode</a>
                         </li>
- --}}
+
                     </ul>
                 </li>
 
@@ -95,10 +95,18 @@
                          <li>
                             <a href="{{ url('/admin/export') }}">Export Data</a>
                         </li>
-                        <li>
+                       {{--  <li>
                             <a href="{{ url('/admin/exportApproval') }}">Export Approval</a>
-                        </li>
+                        </li> --}}
                     </ul>
+                </li>
+
+
+                <li class="nav-item @yield('approval')" data-toggle="tooltip" data-placement="right" title="Projects">
+                    <a class="nav-link" href="{{ url('/admin/exportApproval') }}">
+                        <i class="ti i-cl-2 ti-dashboard"></i>
+                        <span class="nav-link-text">Approvals</span>
+                    </a>
                 </li>
 
 
