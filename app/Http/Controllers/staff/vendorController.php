@@ -1,20 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\staff;
 
-use App\VendorCode;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Helpers\Helper;
+use App\VendorCode;
 
-class VendorCodeController extends Controller
+
+
+class vendorController extends Controller
 {
-    public function __construct(){
-        $this->middleware('admin');
+     public function __construct(){
+        $this->middleware('staff');
     }
     public function index(){
-    	return view('admin.vendorcode.add_vendorcode');
+    	return view('staff.vendor-code.add_vendorcode');
     }
-    public  function  store(Request $request){
+
+     public  function  store(Request $request){
        // dd(request()->all());
         $this->validate(request(),[
             'name'=>'required'
@@ -27,15 +31,15 @@ class VendorCodeController extends Controller
         return back()->with('success','New VendorCode Created Successfully');
     }
 
-    public function view(){
+     public function view(){
         $datas = VendorCode::all();
-        return view('admin.vendorcode.view_vendor',compact('datas'));
+        return view('staff.vendor-code.view_vendor',compact('datas'));
     }
 
 
     public function editVendor($id){
         $datas = VendorCode::findOrfail($id);
-        return view('admin.vendorcode.edit-vendor',compact('datas'));
+        return view('staff.vendor-code.edit-vendor',compact('datas'));
     }
 
     public function update_vendor($id,Request $request){
@@ -44,11 +48,4 @@ class VendorCodeController extends Controller
         $vendor->save();
         return back()->with('success','Vendor Updated Successfully');
     }
-
-    public function deleteCustomer($id){
-        $Request = VendorCode::findOrfail($id);
-        $Request->delete();
-        return back()->with('success','Vendor Deleted Successfully');
-    }
-
 }

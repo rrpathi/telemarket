@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('export')
+@section('approval')
 	active
 @endsection
 
