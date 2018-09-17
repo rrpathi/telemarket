@@ -41,32 +41,28 @@
                 </div>
             </div>
         </div>
-
-        {{-- <div class="col-md-3 col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="float-right">
-                        <i class="icon ti-layout-grid2 gredient-cl font-30"></i>
-                    </div>
-                    <div class="widget-detail">
-                        <h4 class="mb-1">{{ $data['total_vendor'] }}</h4>
-                        <span>Total Vendors</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="float-right">
-                        <i class="icon ti-user gredient-cl font-30"></i>
-                    </div>
-                    <div class="widget-detail">
-                        <h4 class="mb-1"></h4>
-                        <span>Total Users</span>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
+    </div>
+    <div class="row page-titles">
+        <div class="col-md-12 align-self-center">
+             <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Location</th>
+                  <th scope="col">Salary</th>
+                  <th scope="col">Business</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($PlaceDataCount as  $key => $placeCount)
+                    <tr>
+                      <td> {{$key}}</td>
+                      <td>{{$placeCount['salaried']}}</td>
+                      <td>{{$placeCount['business']}}</td>
+                    </tr>
+                @endforeach
+              </tbody>
+            </table>
+        </div>  
+    </div>
+       
 @endsection
