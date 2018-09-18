@@ -110,6 +110,22 @@
                 </li>
 
 
+
+                  <li class="nav-item  @yield('blockList')" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#blockList" data-parent="#exampleAccordion">
+                        <i class="ti i-cl-12 ti-settings"></i>
+                        <span class="nav-link-text">Block List</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="blockList">
+                         <li>
+                            <a href="{{ url('/admin/BlockList/Add') }}">Add Block List</a>
+                        </li>
+                       <li>
+                            <a href="{{ url('/admin/BlockList') }}">View Block List</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item @yield('report')" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Report" data-parent="#exampleAccordion">
                         <i class="ti i-cl-12 ti-settings"></i>

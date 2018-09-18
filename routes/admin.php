@@ -56,3 +56,13 @@ Route::post('/exportUpdate/{id}/update','ExportController@updateExport')->name('
 Route::get('/exportApproval','ExportController@ExportApproval');
 Route::get('/getExportApprovalStatus','ExportController@getExportApprovalStatus');
 Route::post('/update_approval_status','ExportController@updateApprovalStatus')->name('update_approval_status');
+
+// Block List
+Route::get('/BlockList/Add','blockListControllers@addBlockListForm');
+Route::post('/BlockList/Add','blockListControllers@addBlockList');
+Route::get('/BlockList','blockListControllers@viewBlockList');
+Route::get('BlockList/edit/{id}', 'blockListControllers@editBlockList')->name('edit_blockList');
+Route::post('BlockList/{id}/update', 'blockListControllers@updateBlockList')->name('update_block_list');
+Route::delete('/BlockList/{id}','blockListControllers@deleteBlockList')->name('destory_BlockList');
+
+
