@@ -150,9 +150,9 @@
                   setTimeout(function() {
                       $("#vendor_code option[value='<?php echo $export_history->vendor_code ?>']").attr('selected', 'selected');
                       $('.export_data_count').trigger('change');
-                  }, 200);
-              }, 200);
-          }, 200);
+                  }, 1000);
+              }, 1000);
+          }, 1000);
       }, 100);
   // });
 });

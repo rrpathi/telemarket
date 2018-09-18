@@ -44,8 +44,7 @@
 
 
 
-<!-- <script src="{{ url('js\customer.js') }}"></script> -->
-<script src="{{ url('js\custome.js') }}"></script>
+<script src="{{ url('js\customer.js') }}"></script>
 
 <script>
     function openRightMenu() {
