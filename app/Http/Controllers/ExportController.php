@@ -42,23 +42,55 @@ class ExportController extends Controller
         }
     }
 
-   
-   public function catagoryChange(){
-    if (!empty(request('location'))&&!empty(request('category_value'))) {
-            $location_count = DB::table(request('location'))->select('category')->Where('database_type',request('category_value'))->get();
-           $location_count= $location_count->unique('category')->toArray();
-           $optionData='<select class="form-control export_change"  id="category" name="category" required="">
+
+    public function location_change(){
+        if (!empty(request('location'))) {
+            $database_type= DB::table(request('location'))->select('database_type')->get()->unique('database_type')->toArray();
+            $optionData='<select class="form-control database_type_change"  id="database_type" name="database_type" required="">
+           <option value="">Select Type</option>';
+            foreach ($database_type as $key => $value) {
+                $optionData = $optionData.'<option value="'.$value->database_type.'">'.$value->database_type.'</option>';
+            }
+            $finalData=$optionData.'</select>';
+            return $finalData;
+        }else{
+            return '';
+        }
+
+    }
+
+    public function database_type_change(){
+        if (!empty(request('location'))&&!empty(request('database_type'))) {
+            $location_count = DB::table(request('location'))->select('category')->Where('database_type',request('database_type'))->get();
+            $location_count= $location_count->unique('category')->toArray();
+            $optionData='<select class="form-control catagory_change"  id="category" name="category" required="">
            <option value="">Select Catagory</option>';
             foreach ($location_count as $key => $value) {
                 $optionData = $optionData.'<option value="'.$value->category.'">'.$value->category.'</option>';
             }
             $optionData=$optionData.'</select>';
             return $optionData;
-    }else{
-        return '';
+        }else{
+            return '';
+        }
     }
 
-   }
+    public function catagory_change(){
+//        return request()->all();
+       $catagoryValues = DB::table(request('location'))->select('vendor_id')->Where([['database_type',request('database_type')],['category',request('category_value')]])->get();
+        $catagoryValues= $catagoryValues->unique('vendor_id')->toArray();
+        $optionData='<select class="form-control export_data_count" id="vendor_code" name="vendor_code" required="">
+           <option value="">Select Vendor Code</option>';
+
+        foreach ($catagoryValues as $key => $value) {
+            $Vendor= VendorCode::where('vendorid',$value->vendor_id)->get()->first();
+            $optionData = $optionData.'<option value="'.$value->vendor_id.'">'.$Vendor->name.'</option>';
+        }
+        $optionData=$optionData.'</select>';
+        return $optionData;
+
+    }
+
 
    public function customerExportCount(){
         if (!empty(request()->customer_id)) {
@@ -161,32 +193,32 @@ class ExportController extends Controller
         }
 
         // EXPORT MODULE
-        if($data['remaining_count']==0){
-            $data = TempData::find($TempData['id']);
-            $data['export_status']=1;
-            $data->save(); //update export status to tempdata table
-            $exportHistoryData= ExportHistory::Where([['temp_datas_id',$TempData['id']]])->get();//get all data from export table
-              foreach ($exportHistoryData as $key => $value) {
-                    $skip = $value['from_count']-1;
-                    $take = $value['to_count']-$value['from_count']+1;
-                    $exportdata[] = DB::table($value['location'])->select('name','database_type','category','salary','mobile_no','telephone','email_id','company_name','vendor_name')->Where([['vendor_id',$value['vendor_code']],['category',$value['category']]])->skip($skip)->take($take)->get()->toArray();
-              }
-              foreach ($exportdata as $key => $value) {
-                foreach ($value as $key => $value1) {
-                    $finalData[] =json_decode( json_encode($value1), true);
-                }
-              }
-            $exportdata= json_decode( json_encode($finalData), true);
-             Excel::create('Greefi-Tech',function($excel) use ($exportdata){
-               $excel->sheet('Sheet 1',function($sheet) use ($exportdata){
-                   $sheet->fromArray($exportdata);
-               });
-            })->export('xlsx');
-             return back();
-        }
-        else{
+//        if($data['remaining_count']==0){
+//            $data = TempData::find($TempData['id']);
+//            $data['export_status']=1;
+//            $data->save(); //update export status to tempdata table
+//            $exportHistoryData= ExportHistory::Where([['temp_datas_id',$TempData['id']]])->get();//get all data from export table
+//              foreach ($exportHistoryData as $key => $value) {
+//                    $skip = $value['from_count']-1;
+//                    $take = $value['to_count']-$value['from_count']+1;
+//                    $exportdata[] = DB::table($value['location'])->select('name','database_type','category','salary','mobile_no','telephone','email_id','company_name','vendor_name')->Where([['vendor_id',$value['vendor_code']],['category',$value['category']]])->skip($skip)->take($take)->get()->toArray();
+//              }
+//              foreach ($exportdata as $key => $value) {
+//                foreach ($value as $key => $value1) {
+//                    $finalData[] =json_decode( json_encode($value1), true);
+//                }
+//              }
+//            $exportdata= json_decode( json_encode($finalData), true);
+//             Excel::create('Greefi-Tech',function($excel) use ($exportdata){
+//               $excel->sheet('Sheet 1',function($sheet) use ($exportdata){
+//                   $sheet->fromArray($exportdata);
+//               });
+//            })->export('xlsx');
+//             return back();
+//        }
+//        else{
             return back()->with('success','Data Submitted Sucessfully'); 
-        }
+//        }
     }
 
     public function editExport($id){
@@ -235,10 +267,7 @@ class ExportController extends Controller
         if($TempTableData->remaining_count+$export_history_data->export_count-$request->export_count<0){
             return back()->with('danger','Your Data Limit is Exceed');
         }
-        // CHECK EXPORT STATUS
-        if($TempTableData->export_status==1){
-            return back()->with('danger','Already Excel Exported');
-        }
+
 
         // REMOVE THIS DATA TO CHECK IS BETWEEN
          $exportHistoryData=ExportHistory::Where([['temp_datas_id',$TempTableData['id']],['vendor_code',$request->vendor_code],['location',$request->location],['category',$request->category]])->get();
@@ -289,32 +318,32 @@ class ExportController extends Controller
             }
 
         // EXPORT MODULE
-        if($remaining_updated_data==0){
-            $data = TempData::find($export_history_data->temp_datas_id);
-            $data['export_status']=1;
-            $data->save(); //update export status to tempdata table
-            $exportHistoryData= ExportHistory::Where([['temp_datas_id',$TempTableData->id]])->get();//get all data from export table
-              foreach ($exportHistoryData as $key => $value) {
-                    $skip = $value['from_count']-1;
-                    $take = $value['to_count']-$value['from_count']+1;
-                    $exportdata[] = DB::table($value['location'])->select('name','database_type','category','salary','mobile_no','telephone','email_id','company_name','vendor_name')->Where([['vendor_id',$value['vendor_code']],['category',$value['category']]])->skip($skip)->take($take)->get()->toArray();
-              }
-              foreach ($exportdata as $key => $value) {
-                foreach ($value as $key => $value1) {
-                    $finalData[] =json_decode( json_encode($value1), true);
-                }
-              }
-            $exportdata= json_decode( json_encode($finalData), true);
-             Excel::create('Greefi-Tech',function($excel) use ($exportdata){
-               $excel->sheet('Sheet 1',function($sheet) use ($exportdata){
-                   $sheet->fromArray($exportdata);
-               });
-            })->export('xlsx');
-             return back();
-        }
-        else{
+//        if($remaining_updated_data==0){
+//            $data = TempData::find($export_history_data->temp_datas_id);
+//            $data['export_status']=1;
+//            $data->save(); //update export status to tempdata table
+//            $exportHistoryData= ExportHistory::Where([['temp_datas_id',$TempTableData->id]])->get();//get all data from export table
+//              foreach ($exportHistoryData as $key => $value) {
+//                    $skip = $value['from_count']-1;
+//                    $take = $value['to_count']-$value['from_count']+1;
+//                    $exportdata[] = DB::table($value['location'])->select('name','database_type','category','salary','mobile_no','telephone','email_id','company_name','vendor_name')->Where([['vendor_id',$value['vendor_code']],['category',$value['category']]])->skip($skip)->take($take)->get()->toArray();
+//              }
+//              foreach ($exportdata as $key => $value) {
+//                foreach ($value as $key => $value1) {
+//                    $finalData[] =json_decode( json_encode($value1), true);
+//                }
+//              }
+//            $exportdata= json_decode( json_encode($finalData), true);
+//             Excel::create('Greefi-Tech',function($excel) use ($exportdata){
+//               $excel->sheet('Sheet 1',function($sheet) use ($exportdata){
+//                   $sheet->fromArray($exportdata);
+//               });
+//            })->export('xlsx');
+//             return back();
+//        }
+//        else{
             return redirect('admin/export')->with('success', 'Export Data updated Sucessfully!');
-        }
+//        }
     }
 
     public function ExportApproval(Request $request){
