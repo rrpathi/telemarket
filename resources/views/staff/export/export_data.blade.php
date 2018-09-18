@@ -19,8 +19,6 @@
     <!-- form -->
 <div class="row">
    <div class="col-md-12 col-sm-12">
-      <form data-toggle="validator" id="#" class="padd-20" method="post" action="{{ route('staff.export-data-staff') }}" enctype="multipart/form-data">
-            {{ csrf_field() }}
          <div class="card">
             <div class="row page-titles">
                <div class="align-center">
@@ -55,15 +53,9 @@
                   </div>
                </div>
                 <div class="col-12">
-               <div class="form-group">
-                  <div class="text-center">
-                     <button id="exportButtonStaff" class="btn gredient-btn" disabled>Export Data</button>
-                  </div>
-               </div>
             </div>
             </div>
          </div>
-      </form>
       <div id="ApprovalData"></div>
    </div>
 </div>

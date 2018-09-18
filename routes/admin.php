@@ -66,3 +66,8 @@ Route::post('BlockList/{id}/update', 'blockListControllers@updateBlockList')->na
 Route::delete('/BlockList/{id}','blockListControllers@deleteBlockList')->name('destory_BlockList');
 
 
+
+// EXPORT EXCEL DATA ADMIN
+Route::get('exportExcelList', 'ExportController@ViewExportLIst');
+Route::get('exportExcel/{id}/download', 'ExportController@DownloadExcelData')->name('DownloadExcel');
+

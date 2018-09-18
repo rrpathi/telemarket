@@ -41,12 +41,5 @@ Route::delete('/destory_export/{id}/delete','staff\ExportController@deleteExport
 
 Route::get('/export-data','staff\ExportController@dataExport');
 Route::get('/customer_export_status','staff\ExportController@exportStatus');
-Route::post('/export-data','staff\ExportController@exportDataExcel')->name('export-data-staff');
-
-
-
-
-
-
-
-
+Route::get('/ExportDownload/{id}/Download','staff\ExportController@exportDataExcel')->name('DownloadExcel');
+Route::get('/exportExcel','staff\ExportController@ListExcelExportData');

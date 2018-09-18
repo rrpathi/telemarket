@@ -352,7 +352,7 @@ class ExportController extends Controller
     }
 
     public function getExportApprovalStatus(Request $request){
-        $TempData = TempData::Where([['customer_id',request()->customer_id]])->orderBy('id', 'DESC')->first();
+        $TempData = TempData::with('staff')->Where([['customer_id',request()->customer_id]])->orderBy('id', 'DESC')->first();
         $exportHistoryData=ExportHistory::Where([['temp_datas_id',$TempData['id']]])->get();
         $table = '<table class="table"><thead>
         <th>Location</th>
@@ -407,5 +407,34 @@ class ExportController extends Controller
             return back()->with('danger','Error on update..');
             
         }
+    }
+
+
+    // list Export File Lists
+    public function ViewExportLIst(Request $request){
+        $datas = TempData::with('customer','staff')->where([['approvedStatus',1],['remaining_count',0]])->orderBy('id', 'DESC')->get();
+        return view('admin.export.export_excel',compact('datas'));
+    }
+
+    public function DownloadExcelData($id,Request $request){
+            $data = TempData::find($id);
+            $exportHistoryData= ExportHistory::Where([['temp_datas_id',$data->id]])->get();//get all data from export table
+             foreach ($exportHistoryData as $key => $value) {
+                   $skip = $value['from_count']-1;
+                   $take = $value['to_count']-$value['from_count']+1;
+                   $exportdata[] = DB::table($value['location'])->select('name','database_type','category','salary','mobile_no','telephone','email_id','company_name','vendor_name')->Where([['vendor_id',$value['vendor_code']],['category',$value['category']]])->skip($skip)->take($take)->get()->toArray();
+             }
+             foreach ($exportdata as $key => $value) {
+               foreach ($value as $key => $value1) {
+                   $finalData[] =json_decode( json_encode($value1), true);
+               }
+             }
+           $exportdata= json_decode( json_encode($finalData), true);
+            Excel::create('Greefi-Tech',function($excel) use ($exportdata){
+              $excel->sheet('Sheet 1',function($sheet) use ($exportdata){
+                  $sheet->fromArray($exportdata);
+              });
+           })->export('xlsx');
+            return back();
     }
 }

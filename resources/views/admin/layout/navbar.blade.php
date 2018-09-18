@@ -93,11 +93,11 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="Export">
                          <li>
-                            <a href="{{ url('/admin/export') }}">Export Data</a>
+                            <a href="{{ url('/admin/export') }}">Add Export</a>
                         </li>
-                       {{--  <li>
-                            <a href="{{ url('/admin/exportApproval') }}">Export Approval</a>
-                        </li> --}}
+                        <li>
+                            <a href="{{ url('/admin/exportExcelList') }}">Export List</a>
+                        </li> 
                     </ul>
                 </li>
 

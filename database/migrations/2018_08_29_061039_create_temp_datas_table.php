@@ -21,6 +21,7 @@ class CreateTempDatasTable extends Migration
             $table->integer('export_status')->default(0);
             $table->integer('approvedStatus')->default(0);
             $table->string('discription')->nullable();
+            $table->string('staffIds')->nullable()->default(0);
             $table->timestamps();
         });
     }

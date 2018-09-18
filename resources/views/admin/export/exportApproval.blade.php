@@ -43,12 +43,19 @@
                 <div class="col-sm-2">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Export Status</span></label>
-				    <div class="radio">
-				      <label><input type="radio" value="1" id="adminApproved" name="approvedStatus" required="">Approved</label>
-				    </div>
-				    <div class="radio disabled">
-				      <label><input type="radio" value="2" id="adminDisapproved" name="approvedStatus">Dis Approved</label>
-				    </div>
+            				    <div class="radio">
+            				      <label><input type="radio" value="1" id="adminApproved" name="approvedStatus" required="">Approved</label>
+            				    </div>
+            				    <div class="radio disabled">
+            				      <label><input type="radio" value="2" id="adminDisapproved" name="approvedStatus">Dis Approved</label>
+            				    </div>
+                     <div class="help-block with-errors"></div>
+                  </div>
+               </div>
+               <div class="col-sm-3">
+                  <div class="form-group">
+                     <label class="control-label"><span class="asterisk">Staff Name</span></label>
+                      <div id="staffName"></div>
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
@@ -59,8 +66,8 @@
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
+               
             </div>
-
             <div class="col-12">
                <div class="form-group">
                   <div class="text-center">

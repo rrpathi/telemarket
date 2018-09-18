@@ -82,7 +82,10 @@
                             <a href="{{ url('/staff/export') }}">Add Export</a>
                         </li>
                         <li>
-                            <a href="{{ url('/staff/export-data') }}">Export Data</a>
+                            <a href="{{ url('/staff/export-data') }}">Export Status</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/staff/exportExcel') }}">Export Data</a>
                         </li>
                     </ul>
                 </li>

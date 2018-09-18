@@ -10,6 +10,7 @@ use DB;
 use Excel;
 use App\ExportHistory;
 use App\TempData;
+use Auth;
 
 class ExportController extends Controller
 {
@@ -37,7 +38,7 @@ class ExportController extends Controller
 
     public function export(Request $request){
         //check temp_datas empty or not
-        $TempData = TempData::Where([['customer_id',$request->customer_id]])->orderBy('id', 'DESC')->first();
+       $TempData = TempData::Where([['customer_id',$request->customer_id]])->orderBy('id', 'DESC')->first();
 
         if ($TempData['export_status']==0) {
             $exportHistoryData=ExportHistory::Where([['temp_datas_id',$TempData['id']],['vendor_code',$request->vendor_code],['location',$request->location],['category',$request->category]])->get();
@@ -74,6 +75,7 @@ class ExportController extends Controller
                  $data['customer_id']=$request->customer_id;
                 $data['customer_count']=$request->customer_count;
                 $data['remaining_count']=$request->customer_count-$request->export_count;
+                $data['staffIds']=Auth::user()->id;
                 $TempData= TempData::create($data);
                 $column_values = array('customer_id'=>$request->customer_id,'vendor_code'=>$request->vendor_code,'location'=>$request->location,'database_type'=>$request->database_type,'category'=>$request->category, 'from_count'=>$request->from_count,'to_count'=>$request->to_count,'export_count'=>$request->export_count,'temp_datas_id'=>$TempData['id']);
                 $ExportHistoryInsert = ExportHistory::create($column_values);
@@ -93,9 +95,7 @@ class ExportController extends Controller
                 return back()->with('danger','Sorry!  You Balance Count is :'.$TempData['remaining_count']); 
             }
         }
-
-        
-            return back()->with('success','Data Submitted Sucessfully'); 
+        return back()->with('success','Data Submitted Sucessfully'); 
     }
 
 
@@ -143,8 +143,10 @@ class ExportController extends Controller
     	}	
     }
 
-    public function exportDataExcel(Request $request){
-    	$TempData = TempData::Where([['customer_id',request()->customer_id]])->orderBy('id', 'DESC')->first();
+    public function exportDataExcel($id,Request $request){
+        // return 1;
+
+    	$TempData = TempData::find($id);
     	if($TempData->approvedStatus==1 && $TempData->export_status==0 && $TempData->remaining_count==0){
     		$data = TempData::find($TempData['id']);
             $data['export_status']=1;
@@ -336,6 +338,11 @@ class ExportController extends Controller
         $data->save();
         ExportHistory::where('id', $id)->delete();
         return back()->with('success','Data Deleted Sucessfully');
+    }
+
+    public function ListExcelExportData(Request $request){
+        $datas = TempData::with('customer')->where([['approvedStatus',1],['remaining_count',0],['staffIds',Auth::user()->id]])->orderBy('id', 'DESC')->get();
+         return view('staff.export.export_excel',compact('datas'));
     }
 
 }
