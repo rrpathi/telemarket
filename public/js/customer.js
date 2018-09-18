@@ -2,20 +2,54 @@ $(document).ready(function(){
 	$( window ).on("load", function() {
 		$('#vendor_code').hide();
 	});
-	$(".category_change").change(function(){
+
+    $('body').on('change','.location_change',function() {
+        var location = $("#location").val();
+        $.ajax({
+            type : "get",
+            url:'/admin/location_change',
+            data:{location:location},
+            success: function(data) {
+                $('#DatabaseTypeData').html(data);
+                $('.category_change').trigger('change');
+            }
+        });
+    });
+
+
+    $('body').on('change','.database_type_change',function(){
 		var location = $("#location").val();
-		var category_value = $("#database_type").val();
+		var database_type = $("#database_type").val();
 		$.ajax({
 			type : "get",
-			url:'/admin/catagory-change',
-			data:{location:location,category_value:category_value},
+			url:'/admin/database_type_change',
+			data:{location:location,database_type:database_type},
 			success: function(data) {
-				$('#optionData').html(data);
-				$('.export_change').trigger('change');
+				// console.log(data);
+                $('#CategoryDatas').html(data);
+                $('.export_change').trigger('change');
 			}
 		});
 	});
-	$('body').on('change', '.export_change', function() {
+
+    $('body').on('change','.catagory_change',function(){
+        var location = $("#location").val();
+        var database_type = $("#database_type").val();
+        var category_value = $("#category").val();
+        $.ajax({
+            type : "get",
+            url:'/admin/catagory_change',
+            data:{location:location,category_value:category_value,database_type:database_type},
+            success: function(data) {
+                // console.log(data);
+                $('#VendorCodeData').html(data);
+                $('.export_data_count').trigger('change');
+            }
+        });
+    });
+
+
+	$('body').on('change', '.export_data_count', function() {
 		var vendor_code = $("#vendor_code").val();
 		var location = $("#location").val();
 		var database_type = $("#database_type").val();

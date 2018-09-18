@@ -52,7 +52,7 @@
                <div class="col-sm-2">
                   <div class="form-group">
                      <label for="inputphone" class="control-label"><span class="asterisk">Location</span></label>
-                     <select class="form-control category_change" id ="location" name="location" required="">
+                     <select class="form-control location_change" id ="location" name="location" required="">
                         <option value="">Select Location</option>
                         @foreach($locations as $location)
                         <option value="{{ $location }}" <?php if($location==$export_history->location){echo 'selected';} ?>> {{ ucfirst($location) }}</option>
@@ -64,18 +64,14 @@
                  <div class="col-sm-2">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Database Type</span></label>
-                     <select class="form-control category_change" id="database_type" name="">
-                        <option value="business" <?php if('business'==$export_history->database_type){echo 'selected';} ?>>Business</option>
-                        <option value="salaried" <?php if('salaried'==$export_history->database_type){echo 'selected';} ?>>Salary</option>
-
-                     </select>
+                      <div id="DatabaseTypeData"></div>
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
                  <div class="col-sm-2">
                   <div class="form-group">
                      <label for="inputphone" class="control-label"><span class="asterisk">Category</span></label>
-                          <div id="optionData"></div>
+                      <div id="CategoryDatas"></div>
 
                      {{-- <select class="form-control export_change"  name="#" required="">
                         <option value="" id="optionData"></option>
@@ -87,11 +83,7 @@
                <div class="col-sm-2">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Vendor Code</span></label>
-                     <select class="form-control export_change" id="vendor_code" name="vendor_code">
-                        @foreach($datas as $vendorcode)
-                        <option value="{{ $vendorcode->vendorid }}">{{ $vendorcode->name}}</option>
-                        @endforeach
-                     </select>
+                      <div id="VendorCodeData"></div>
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
@@ -148,13 +140,19 @@
   $(document).ready(function(){
     // $( window ).on("load", function() {
       setTimeout(function() {
-        $('.category_change').trigger('change');
+          $('.location_change').trigger('change');
           setTimeout(function() {
-            $("#category option[value='<?php echo $export_history->category ?>']").attr('selected', 'selected');
-            $("#vendor_code option[value='<?php echo $export_history->vendor_code ?>']").attr('selected', 'selected');
-            $('.export_change').trigger('change');
-          }, 3000);
-            $('.export_change').trigger('change');
+              $("#database_type option[value='<?php echo $export_history->database_type ?>']").attr('selected', 'selected');
+              $('.database_type_change').trigger('change');
+              setTimeout(function() {
+                  $("#category option[value='<?php echo $export_history->category ?>']").attr('selected', 'selected');
+                  $('.catagory_change').trigger('change');
+                  setTimeout(function() {
+                      $("#vendor_code option[value='<?php echo $export_history->vendor_code ?>']").attr('selected', 'selected');
+                      $('.export_data_count').trigger('change');
+                  }, 200);
+              }, 200);
+          }, 200);
       }, 100);
   // });
 });

@@ -50,7 +50,7 @@
                <div class="col-sm-2">
                   <div class="form-group">
                      <label for="inputphone" class="control-label"><span class="asterisk">Location</span></label>
-                     <select class="form-control category_change" id ="location" name="location" required="">
+                     <select class="form-control location_change" id ="location" name="location" required="">
                         <option value="">Select Location</option>
                         @foreach($locations as $location)
                         <option value="{{ $location }}"> {{ ucfirst($location) }}</option>
@@ -62,18 +62,19 @@
                  <div class="col-sm-2">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Database Type</span></label>
-                     <select class="form-control category_change" name="database_type" id="database_type" name="">
-                        <option value="business">Business</option>
-                        <option value="salaried">Salary</option>
+                     {{--<select class="form-control category_change" name="database_type" id="database_type" name="">--}}
+                        {{--<option value="business">Business</option>--}}
+                        {{--<option value="salaried">Salary</option>--}}
 
-                     </select>
+                     {{--</select>--}}
+                     <div id="DatabaseTypeData"></div>
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
                  <div class="col-sm-2">
                   <div class="form-group">
                      <label for="inputphone" class="control-label"><span class="asterisk">Category</span></label>
-                          <div id="optionData"></div>
+                          <div id="CategoryDatas"></div>
 
                      {{-- <select class="form-control export_change"  name="#" required="">
                         <option value="" id="optionData"></option>
@@ -85,11 +86,8 @@
                <div class="col-sm-2">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Vendor Code</span></label>
-                     <select class="form-control export_change" id="vendor_code" name="vendor_code">
-                        @foreach($datas as $vendorcode)
-                        <option value="{{ $vendorcode->vendorid }}">{{ $vendorcode->name}}</option>
-                        @endforeach
-                     </select>
+{{--                        <option value="{{ $vendorcode->vendorid }}">{{ $vendorcode->name}}</option>--}}
+                     <div id="VendorCodeData"></div>
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
