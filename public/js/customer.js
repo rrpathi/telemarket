@@ -181,10 +181,15 @@ $(document).ready(function(){
 			data:{customer_id:exportApproval},
 			success: function(data) {
 					// console.log(data);
+					$('#staffName').html('');
 					$('input[name=approvedStatus]').prop("checked", false);
 					$('#CustomerDisctiption').val('');
 				if(data!=''){
-					$('#staffName').html('<p style="color:green">'+data.tempData.staff.name+'</p>');
+					if (data.tempData.staffIds == 0) {
+						$('#staffName').html('<p style="color:green"> Admin </p>');
+					}else{
+						$('#staffName').html('<p style="color:green">'+data.tempData.staff.name+'</p>');
+					}
 					$('#ApprovalData').html(data.table);
 					$('#CustomerDisctiption').attr("disabled", false);
 					$('#adminApproved').attr("disabled", false);
