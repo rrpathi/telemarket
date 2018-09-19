@@ -148,7 +148,7 @@ class ContactController extends Controller
                             }
                         }
                     }
-                    return back()->with('success','Contact Created Sucessfully, Inserted Data = '.$insertedData.' Data Eluminated = '.$eluminatedData);
+                    return back()->with('success','Contact Created Sucessfully, Created Data = '.$insertedData.' Data Rejected = '.$eluminatedData);
                 }
             } else {
                 return back()->with('danger', 'Check File Formate');

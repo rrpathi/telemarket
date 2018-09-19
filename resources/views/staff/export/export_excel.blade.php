@@ -10,6 +10,12 @@
             <h4 class="theme-cl">Export Excel</h4>
         </div>
     </div>
+     @include('staff.layout.errors')
+    <style>                    
+    .asterisk:after{
+        content:"*" ;
+        color:red ;
+        </style>
     <!-- Table Card -->
 
     <div class="card">

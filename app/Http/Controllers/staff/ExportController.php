@@ -154,9 +154,7 @@ class ExportController extends Controller
     }
 
     public function exportDataExcel($id,Request $request){
-        // return 1;
-
-    	$TempData = TempData::find($id);
+    	 $TempData = TempData::find($id);
     	if($TempData->approvedStatus==1 && $TempData->export_status==0 && $TempData->remaining_count==0){
     		$data = TempData::find($TempData['id']);
             $data['export_status']=1;
@@ -178,17 +176,12 @@ class ExportController extends Controller
                    $sheet->fromArray($exportdata);
                });
             })->export('xlsx');
-             return back();
+             return back()->with('success','Excel Downloaded Sucessfully!');
     	}else{
-    		return back()->with('danger','Error On download'); 
+    		return back()->with('danger','Already File Exported Contact Admin!'); 
     	}
     	
     }
-
-
-
-
-
 
 
 
