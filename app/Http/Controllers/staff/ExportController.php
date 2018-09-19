@@ -37,6 +37,16 @@ class ExportController extends Controller
 
 
     public function export(Request $request){
+        $this->validate(request(),[
+            'customer_id'=>'required',
+            'location'=>'required',
+            'database_type'=>'required',
+            'category'=>'required',
+            'from_count'=>'required',
+            'to_count'=>'required',
+            'category'=>'required',
+            'customer_count'=>'required',
+        ]);
         //check temp_datas empty or not
        $TempData = TempData::Where([['customer_id',$request->customer_id]])->orderBy('id', 'DESC')->first();
 

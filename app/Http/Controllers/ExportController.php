@@ -135,6 +135,16 @@ class ExportController extends Controller
 
 //Save datas in Temp_data
     public function export(Request $request){
+        $this->validate(request(),[
+            'customer_id'=>'required',
+            'location'=>'required',
+            'database_type'=>'required',
+            'category'=>'required',
+            'from_count'=>'required',
+            'to_count'=>'required',
+            'category'=>'required',
+            'customer_count'=>'required',
+        ]);
         //check temp_datas empty or not
         $TempData = TempData::Where([['customer_id',$request->customer_id]])->orderBy('id', 'DESC')->first();
         if ($TempData['export_status']==0) {
@@ -259,6 +269,16 @@ class ExportController extends Controller
 
 
     public function updateExport(Request $request,$id){
+        $this->validate(request(),[
+            'customer_id'=>'required',
+            'location'=>'required',
+            'database_type'=>'required',
+            'category'=>'required',
+            'from_count'=>'required',
+            'to_count'=>'required',
+            'category'=>'required',
+            'customer_count'=>'required',
+        ]);
         // return $request;
         $export_history_data = ExportHistory::findOrFail($id);
         $TempTableData = TempData::Where([['id',$export_history_data['temp_datas_id']]])->first();
@@ -397,8 +417,12 @@ class ExportController extends Controller
 
 
     public function updateApprovalStatus(Request $request){
+        // return $request;
         $TempData = TempData::Where([['customer_id',request()->customer_id]])->orderBy('id', 'DESC')->first();
         $data = TempData::find($TempData->id);
+        if($TempData->staffIds==0 && $request->approvedStatus==1){
+            $data['export_status']=1;
+        }
         $data['approvedStatus']=$request->approvedStatus;
         $data['discription']=$request->discription;
         if($data->save()){
