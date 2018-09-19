@@ -21,16 +21,16 @@ Route::get('admin/customer_export_count','ExportController@customerExportCount')
 
 
 
-
 // Route::post('import', 'ContactController@import')->name('import');
 
 Route::group(['prefix' => 'admin'], function () {
+  Route::get('/', 'AdminAuth\LoginController@showLoginForm')->name('login');
   Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'AdminAuth\LoginController@login');
   Route::post('/logout', 'AdminAuth\LoginController@logout')->name('logout');
 
-  Route::get('/register', 'AdminAuth\LoginController@showLoginForm')->name('register');
-  Route::post('/register', 'AdminAuth\RegisterController@register');
+  // Route::get('/register', 'AdminAuth\LoginController@showLoginForm')->name('register');
+  // Route::post('/register', 'AdminAuth\RegisterController@register');
 
   Route::post('/password/email', 'AdminAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
   Route::post('/password/reset', 'AdminAuth\ResetPasswordController@reset')->name('password.email');
@@ -44,8 +44,8 @@ Route::group(['prefix' => 'staff'], function () {
   Route::post('/login', 'StaffAuth\LoginController@login');
   Route::post('/logout', 'StaffAuth\LoginController@logout')->name('logout');
 
-  Route::get('/register', 'StaffAuth\RegisterController@showRegistrationForm')->name('register');
-  Route::post('/register', 'StaffAuth\RegisterController@register');
+  // Route::get('/register', 'StaffAuth\RegisterController@showRegistrationForm')->name('register');
+  // Route::post('/register', 'StaffAuth\RegisterController@register');
 
   Route::post('/password/email', 'StaffAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
   Route::post('/password/reset', 'StaffAuth\ResetPasswordController@reset')->name('password.email');
