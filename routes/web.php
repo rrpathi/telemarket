@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'AdminAuth\LoginController@showLoginForm')->name('login');
+ Route::get('/', 'StaffAuth\LoginController@showLoginForm')->name('login');
 
 Route::get('admin/location_change','ExportController@location_change');
 Route::get('admin/database_type_change','ExportController@database_type_change');

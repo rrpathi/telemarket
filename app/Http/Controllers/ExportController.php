@@ -99,7 +99,8 @@ class ExportController extends Controller
             return '';
            }
             // return $TempData['remaining_count'];
-             $exportHistoryData=ExportHistory::Where([['temp_datas_id',$TempData['id']]])->get();
+             $exportHistoryData=ExportHistory::with('vendor')->Where([['temp_datas_id',$TempData['id']]])->get();
+
              $table = '<table class="table"><thead>
         <th>Location</th>
         <th>Category</th>
@@ -111,7 +112,7 @@ class ExportController extends Controller
     </thead>
     <tbody>';
              foreach ($exportHistoryData as $key => $value) {
-                $table = $table.'<tr><td>'.$value['location'].'</td><td>'.$value['category'].'</td><td>'.$value['vendor_code'].'</td><td>'.$value['from_count'].'</td><td>'.$value['to_count'].'</td><td>'.$value['export_count'].'</td><td>
+                $table = $table.'<tr><td>'.$value['location'].'</td><td>'.$value['category'].'</td><td>'.$value['vendor']['name'].'</td><td>'.$value['from_count'].'</td><td>'.$value['to_count'].'</td><td>'.$value['export_count'].'</td><td>
                 <form action="'. route("admin.destory_export", $value["id"]) .'" method="POST">'.
                            csrf_field().'
                            <input type="hidden" name="_method" value="DELETE">
@@ -270,14 +271,12 @@ class ExportController extends Controller
 
     public function updateExport(Request $request,$id){
         $this->validate(request(),[
-            'customer_id'=>'required',
             'location'=>'required',
             'database_type'=>'required',
             'category'=>'required',
             'from_count'=>'required',
             'to_count'=>'required',
             'category'=>'required',
-            'customer_count'=>'required',
         ]);
         // return $request;
         $export_history_data = ExportHistory::findOrFail($id);

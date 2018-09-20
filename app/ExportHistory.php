@@ -12,4 +12,7 @@ class ExportHistory extends Model
     public function customer(){
     	return $this->hasOne('App\Customers','id','customer_id');
     }
+    public function vendor(){
+    	return $this->hasOne('App\VendorCode','vendorid','vendor_code');
+    }
 }
