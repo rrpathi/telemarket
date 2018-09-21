@@ -25,6 +25,8 @@
             <div class="row page-titles">
                <div class="align-center">
                   <h4 class="theme-cl">Customer Details</h4>
+                    <!-- Already Exported Alert -->
+                    <div style="color: red" id="ExportStatusOneMonth"></div>
                </div>
             </div>
             <div class="row mrg-0">

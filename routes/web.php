@@ -18,6 +18,7 @@ Route::get('admin/database_type_change','ExportController@database_type_change')
 Route::get('admin/catagory_change','ExportController@catagory_change');
 Route::get('admin/location-count','ExportController@locationCount');
 Route::get('admin/customer_export_count','ExportController@customerExportCount');
+Route::get('admin/OneMonthCheckExportData','ExportController@OneMonthCheckExportData');
 
 
 

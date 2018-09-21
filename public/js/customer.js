@@ -69,6 +69,8 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+
 	$(".count_value").on('keyup change',function(){
 		  var exportCount = parseInt($('#to_count').val())-parseInt($('#from_count').val())+parseInt(1);
 		  $("#export_count").val(exportCount);
@@ -103,6 +105,34 @@ $(document).ready(function(){
 		});
 	});
 
+
+
+	$('body').on('keyup change', '.checkExportData', function() {
+		var from_count=$('#from_count').val();
+		var to_count = $('#to_count').val();
+		var customer_id= $("#exportCustomer option:selected").val();
+		var vendor_code = $("#vendor_code").val();
+		var location = $("#location").val();
+		var database_type = $("#database_type").val();
+		var category_value = $("#category").val();
+
+		// console.log(from_count+to_count+'customer_id:'+customer_id+'vendor_code:'+vendor_code+'location:'+location+'database_type:'+database_type+' category_value: '+category_value);
+		$.ajax({
+			type : "get",
+			url:'/admin/OneMonthCheckExportData',
+			data:{customer_id:customer_id,from_count:from_count,to_count:to_count,vendor_code:vendor_code,location:location,database_type:database_type,category_value:category_value},
+			success: function(data) {
+				$('#ExportStatusOneMonth').html('');
+				$('.AddExportButton').removeClass('ExportButton');
+				if(data!=''){
+					// console.log(data);
+					$('.AddExportButton').addClass('ExportButton');
+					$('#ExportStatusOneMonth').html(data);
+				}				
+			}
+		});
+	});
+
  // for staffs re coded
 	$('body').on('change', '.ExportsCustomer', function() {
 		var ExportsCustomer = $(".ExportsCustomer option:selected").val();
@@ -111,7 +141,7 @@ $(document).ready(function(){
 			url:'/staff/customer_export_count',
 			data:{customer_id:ExportsCustomer},
 			success: function(data) {
-				console.log(data);
+				// console.log(data);
 					if(data ==''){
 					$("#showTableDataS").html('');
 					$('#CustomerCount').val('');

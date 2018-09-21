@@ -19,12 +19,15 @@
     <!-- form -->
 <div class="row">
    <div class="col-md-12 col-sm-12">
+
       <form data-toggle="validator" id="#" class="padd-20" method="post" action="{{ route('admin.export-data') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
          <div class="card">
             <div class="row page-titles">
                <div class="align-center">
                   <h4 class="theme-cl">Customer Details</h4>
+                      <!-- Already Exported Alert -->
+                  <div style="color: red" id="ExportStatusOneMonth"></div>
                </div>
             </div>
             <div class="row mrg-0">
@@ -104,14 +107,14 @@
                <div class="col-sm-1">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">From</span></label>
-                     <input type="number"  class="form-control count_value" min="1" name="from_count" id="from_count" value="{{ old("from_count") }}"  required="" >
+                     <input type="number"  class="form-control count_value checkExportData" min="1" name="from_count" id="from_count" value="{{ old("from_count") }}"  required="" >
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
                <div class="col-sm-1">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">To</span></label>
-                     <input type="number" class="form-control count_value" min="1" name="to_count" id="to_count" value="{{ old("to_count") }}"  required="" >
+                     <input type="number" class="form-control count_value checkExportData" min="1" name="to_count" id="to_count" value="{{ old("to_count") }}"  required="" >
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
@@ -127,16 +130,28 @@
             <div class="col-12">
                <div class="form-group">
                   <div class="text-center">
-                     <button id="form-button" class="btn gredient-btn">Export Data</button>
+                     <button id="form-button" class="btn gredient-btn AddExportButton">Export Data</button>
                   </div>
                </div>
             </div>
          </div>
       </form>
         <div id="showTableData"></div>
-            {{-- <button id="form-button" class="btn gredient-btn">Add More</button> --}}
    </div>
 </div>
+
+@endsection
+
+@section('scriptOnload')
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('body').on('click','.ExportButton',function() {
+      if (!confirm('Are you Want to Proceed?')) {
+        return false;
+      }
+    });
+  });
+</script>
 @endsection
 
 

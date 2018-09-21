@@ -460,4 +460,40 @@ class ExportController extends Controller
            })->export('xlsx');
             return back();
     }
+
+
+
+
+
+    public function OneMonthCheckExportData(Request $request){
+        if(!empty($request->from_count) && !empty($request->to_count) && !empty($request->customer_id) && !empty($request->category_value) && !empty($request->database_type) && !empty($request->location) && !empty($request->vendor_code)){
+             
+             $exportHistoryData= ExportHistory::with('TempData')->Where([['customer_id',$request->customer_id],['location',$request->location],['database_type',$request->database_type],['category',$request->category_value],['vendor_code',$request->vendor_code]])->get();
+             
+            if(!empty($exportHistoryData)){
+                foreach ($exportHistoryData as $key => $data) {
+                    if ($data->TempData->export_status==1) {
+                        // return $data;
+                        if(($data['from_count']>=$request->from_count) && ($data['from_count']<=$request->to_count)){
+                            return $data['error']='Data Already Exported Form Count : '.$data->from_count.' to To Count : '.$data->to_count.' On : '.$data->TempData->updated_at;
+
+                            // echo "count from in";
+                        }elseif(($data['to_count']>=$request->from_count) && ($data['to_count']<=$request->to_count)){
+                            return $data['error']='Data Already Exported Form Count : '.$data->from_count.' to To Count : '.$data->to_count.' On : '.$data->TempData->updated_at;
+                            // echo "count to in";
+
+                        }elseif(($data['from_count']<=$request->from_count) && ($request->to_count<=$data['to_count'])){
+                            return $data['error']='Data Already Exported Form Count : '.$data->from_count.' to To Count : '.$data->to_count.' On : '.$data->TempData->updated_at;
+                            // echo "data Center content";
+                        }elseif(($data['from_count']>=$request->from_count) && ($request->to_count>=$data['to_count'])){
+                            return $data['error']='Data Already Exported Form Count : '.$data->from_count.' to To Count : '.$data->to_count.' On : '.$data->TempData->updated_at;
+                            // echo "on outer content";
+                        }
+                    }
+                }
+            }
+        }else{
+            return '';
+        }
+    }
 }
