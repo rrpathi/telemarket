@@ -33,7 +33,7 @@
                <div class="col-sm-2">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Customer Name</span></label>
-                     <select class="form-control ExportsCustomer"   name="customer_id" required="">
+                     <select class="form-control ExportsCustomer" id = "exportCustomer"   name="customer_id" required="">
                         <option value="">Select Customer</option>
                         @foreach($customers as $customer)
                         <option value="{{ $customer->id }}">{{ ucfirst($customer->name) }}</option>
@@ -101,14 +101,14 @@
                <div class="col-sm-1">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">From</span></label>
-                     <input type="number"  class="form-control count_value" min="1" name="from_count" id="from_count" value="{{ old("from_count") }}"  required="" >
+                     <input type="number"  class="form-control count_value checkExportData" min="1" name="from_count" id="from_count" value="{{ old("from_count") }}"  required="" >
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
                <div class="col-sm-1">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">To</span></label>
-                     <input type="number" class="form-control count_value" min="1" name="to_count" id="to_count" value="{{ old("to_count") }}"  required="" >
+                     <input type="number" class="form-control count_value checkExportData" min="1" name="to_count" id="to_count" value="{{ old("to_count") }}"  required="" >
                      <div class="help-block with-errors"></div>
                   </div>
                </div>
@@ -124,16 +124,27 @@
             <div class="col-12">
                <div class="form-group">
                   <div class="text-center">
-                     <button id="form-button" class="btn gredient-btn">Export Data</button>
+                     <button id="form-button" class="btn gredient-btn AddExportButton">Export Data</button>
                   </div>
                </div>
             </div>
          </div>
       </form>
         <div id="showTableDataS"></div>
-            {{-- <button id="form-button" class="btn gredient-btn">Add More</button> --}}
    </div>
 </div>
 @endsection
 
+
+@section('scriptOnload')
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('body').on('click','.ExportButton',function() {
+      if (!confirm('Are you Want to Proceed?')) {
+        return false;
+      }
+    });
+  });
+</script>
+@endsection
 

@@ -464,11 +464,13 @@ class ExportController extends Controller
 
 
 
-
+// CHECK LAST ONE MONTH DATA EXPORT
     public function OneMonthCheckExportData(Request $request){
+        $date = \Carbon\Carbon::today()->subDays(30);
+// return ExportHistory::where([['customer_id',$request->customer_id],['updated_at', '>=', date($date)]])->get();
         if(!empty($request->from_count) && !empty($request->to_count) && !empty($request->customer_id) && !empty($request->category_value) && !empty($request->database_type) && !empty($request->location) && !empty($request->vendor_code)){
              
-             $exportHistoryData= ExportHistory::with('TempData')->Where([['customer_id',$request->customer_id],['location',$request->location],['database_type',$request->database_type],['category',$request->category_value],['vendor_code',$request->vendor_code]])->get();
+             $exportHistoryData= ExportHistory::with('TempData')->Where([['customer_id',$request->customer_id],['location',$request->location],['database_type',$request->database_type],['category',$request->category_value],['vendor_code',$request->vendor_code],['updated_at', '>=', date($date)]])->get();
              
             if(!empty($exportHistoryData)){
                 foreach ($exportHistoryData as $key => $data) {

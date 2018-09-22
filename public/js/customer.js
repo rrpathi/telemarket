@@ -115,7 +115,6 @@ $(document).ready(function(){
 		var location = $("#location").val();
 		var database_type = $("#database_type").val();
 		var category_value = $("#category").val();
-
 		// console.log(from_count+to_count+'customer_id:'+customer_id+'vendor_code:'+vendor_code+'location:'+location+'database_type:'+database_type+' category_value: '+category_value);
 		$.ajax({
 			type : "get",
