@@ -27,7 +27,8 @@
                <div class="col-sm-4">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Database Type</span></label>
-                     <select class="form-control" name="table_type">
+                     <select class="form-control" name="table_type" required="">
+                        <option value=""> Select Database Type</option>
                         <option value="business">Business</option>
                         <option value="salary">Salary</option>
                      </select>
@@ -37,7 +38,8 @@
                <div class="col-sm-4">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">Vendor Name</span></label>
-                     <select class="form-control" name="vendor_code">
+                     <select class="form-control" name="vendor_code" required="">
+                      <option value="">Select Vendor Name</option>
                         @foreach($datas as $vendorcode)
                         <option value="{{ $vendorcode->vendorid }}">{{ $vendorcode->name}}</option>
                         @endforeach
@@ -48,7 +50,7 @@
                <div class="col-sm-4">
                   <div class="form-group">
                      <label class="control-label"><span class="asterisk">File</span></label>
-                     <input type="file" name="file" class="form-control-file"  aria-describedby="fileHelp">
+                     <input type="file" name="file" class="form-control-file"  aria-describedby="fileHelp" required="">
                   </div>
                </div>
                <div class="col-12">

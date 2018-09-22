@@ -89,16 +89,22 @@ $(document).ready(function(){
 				if(data ==''){
 					$("#showTableData").html('');
 					$('#CustomerCount').val('');
+					$('#cost').val('');
 					$('#CustomerCount').attr('readonly', false);
+					$('#cost').attr('readonly', false);
 				}else{
 					if(data['count']!=''){
 						$("#showTableData").html(data.table);
 						$('#CustomerCount').val(data.count);
+						$('#cost').val(data.cost);
 						$('#CustomerCount').attr('readonly', true);
+						$('#cost').attr('readonly', true);
 					}else{
 						$("#showTableData").html('');
 						$('#CustomerCount').val('');
+						$('#cost').val('');
 						$('#CustomerCount').attr('readonly', false);
+						$('#cost').attr('readonly', false);
 					}
 				}
 			}

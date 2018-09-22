@@ -27,7 +27,7 @@
 
                  <li class="nav-item @yield('vendorcode')" data-toggle="tooltip" data-placement="right" title="VendorCode">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#vendorcode" data-parent="#exampleAccordion">
-                        <i class="ti i-cl-12 ti-settings"></i>
+                        <i class="ti i-cl-12 ti-pencil-alt"></i>
                         <span class="nav-link-text">VendorCode</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="vendorcode">
@@ -42,7 +42,7 @@
 
                 <li class="nav-item @yield('customer')" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#customer" data-parent="#exampleAccordion">
-                        <i class="ti i-cl-12 ti-settings"></i>
+                        <i class="ti i-cl-12 ti-user"></i>
                         <span class="nav-link-text">Customer</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="customer">
@@ -62,7 +62,7 @@
 
                  <li class="nav-item @yield('contact')" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Contact" data-parent="#exampleAccordion">
-                        <i class="ti i-cl-12 ti-settings"></i>
+                        <i class="ti i-cl-12 ti-location-pin"></i>
                         <span class="nav-link-text">Database</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="Contact">
@@ -74,7 +74,7 @@
 
                 <li class="nav-item @yield('export')" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#export" data-parent="#exampleAccordion">
-                        <i class="ti i-cl-12 ti-settings"></i>
+                        <i class="ti i-cl-12 ti-export"></i>
                         <span class="nav-link-text">Export</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="export">
@@ -86,6 +86,18 @@
                         </li>
                         <li>
                             <a href="{{ url('/staff/exportExcel') }}">Export Data</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item @yield('report')" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Report" data-parent="#exampleAccordion">
+                        <i class="ti i-cl-12 ti-save"></i>
+                        <span class="nav-link-text">Report</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="Report">
+                         <li>
+                            <a href="#">Reports</a>
                         </li>
                     </ul>
                 </li>

@@ -85,6 +85,7 @@ class ExportController extends Controller
                  $data['customer_id']=$request->customer_id;
                 $data['customer_count']=$request->customer_count;
                 $data['remaining_count']=$request->customer_count-$request->export_count;
+                $data['cost']=$request->cost;
                 $data['staffIds']=Auth::user()->id;
                 $TempData= TempData::create($data);
                 $column_values = array('customer_id'=>$request->customer_id,'vendor_code'=>$request->vendor_code,'location'=>$request->location,'database_type'=>$request->database_type,'category'=>$request->category, 'from_count'=>$request->from_count,'to_count'=>$request->to_count,'export_count'=>$request->export_count,'temp_datas_id'=>$TempData['id']);

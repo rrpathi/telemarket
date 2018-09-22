@@ -125,6 +125,7 @@ class ExportController extends Controller
              }
             $table = $table.'</tbody></table>';
             $finalDatas['count']=$TempData['remaining_count'];
+            $finalDatas['cost']=$TempData['cost'];
             $finalDatas['table']=$table;
             if(empty($exportHistoryData)){
                 return "";
@@ -140,6 +141,7 @@ class ExportController extends Controller
             'customer_id'=>'required',
             'location'=>'required',
             'database_type'=>'required',
+            'cost'=>'required',
             'category'=>'required',
             'from_count'=>'required',
             'to_count'=>'required',
@@ -180,9 +182,10 @@ class ExportController extends Controller
         if(empty($TempData) || $TempData['export_status']==1){
             // if temp_datas table is empty to particular customer create new temp data
             if ($request->customer_count-$request->export_count>=0) { //Customer Count less if User Enter more Count
-                 $data['customer_id']=$request->customer_id;
+                $data['customer_id']=$request->customer_id;
                 $data['customer_count']=$request->customer_count;
                 $data['remaining_count']=$request->customer_count-$request->export_count;
+                $data['cost']=$request->cost;
                 $TempData= TempData::create($data);
                 $column_values = array('customer_id'=>$request->customer_id,'vendor_code'=>$request->vendor_code,'location'=>$request->location,'database_type'=>$request->database_type,'category'=>$request->category, 'from_count'=>$request->from_count,'to_count'=>$request->to_count,'export_count'=>$request->export_count,'temp_datas_id'=>$TempData['id']);
                 $ExportHistoryInsert = ExportHistory::create($column_values);
@@ -366,7 +369,8 @@ class ExportController extends Controller
     }
 
     public function ExportApproval(Request $request){
-        $customers =Customers::all();
+        $customers = TempData::with('customer')->Where([['export_status',0],['remaining_count',0],['approvedStatus', '!=' , 1]])->orderBy('id', 'DESC')->get();
+        // return $customers =Customers::all();
         return view('admin.export.exportApproval',compact('customers')); 
     }
 

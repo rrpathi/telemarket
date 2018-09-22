@@ -34,7 +34,7 @@
                      <select class="form-control" id="exportApproval" name="customer_id" required="" >
                         <option value="">Select Customer</option>
                         @foreach($customers as $customer)
-                        	<option value="{{ $customer->id }}">{{ ucfirst($customer->name) }}</option>
+                        	<option value="{{ $customer->id }}">{{ ucfirst($customer->customer->name) }}</option>
                         @endforeach
                      </select>
                      <div class="help-block with-errors"></div>

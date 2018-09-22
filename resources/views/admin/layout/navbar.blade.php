@@ -27,7 +27,7 @@
                 <!-- Start Dashboard-->
                 <li class="nav-item @yield('staff')" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Dashboard" data-parent="#exampleAccordion">
-                        <i class="ti i-cl-12 ti-settings"></i>
+                        <i class="ti i-cl-12 ti-medall-alt"></i>
                         <span class="nav-link-text">Staffs</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="Dashboard">
@@ -42,7 +42,7 @@
 
                  <li class="nav-item @yield('vendorcode')" data-toggle="tooltip" data-placement="right" title="VendorCode">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#vendorcode" data-parent="#exampleAccordion">
-                        <i class="ti i-cl-12 ti-settings"></i>
+                        <i class="ti i-cl-12 ti-pencil-alt"></i>
                         <span class="nav-link-text">VendorCode</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="vendorcode">
@@ -58,7 +58,7 @@
 
                 <li class="nav-item @yield('customer')" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#customer" data-parent="#exampleAccordion">
-                        <i class="ti i-cl-12 ti-settings"></i>
+                        <i class="ti i-cl-12 ti-user"></i>
                         <span class="nav-link-text">Customer</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="customer">
@@ -76,7 +76,7 @@
 
                  <li class="nav-item @yield('contact')" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Contact" data-parent="#exampleAccordion">
-                        <i class="ti i-cl-12 ti-settings"></i>
+                        <i class="ti i-cl-12 ti-location-pin"></i>
                         <span class="nav-link-text">Database</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="Contact">
@@ -88,7 +88,7 @@
 
                    <li class="nav-item  @yield('export')" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Export" data-parent="#exampleAccordion">
-                        <i class="ti i-cl-12 ti-settings"></i>
+                        <i class="ti i-cl-12 ti-export"></i>
                         <span class="nav-link-text">Export</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="Export">
@@ -104,7 +104,7 @@
 
                 <li class="nav-item @yield('approval')" data-toggle="tooltip" data-placement="right" title="Projects">
                     <a class="nav-link" href="{{ url('/admin/exportApproval') }}">
-                        <i class="ti i-cl-2 ti-dashboard"></i>
+                        <i class="ti i-cl-2 ti-check-box"></i>
                         <span class="nav-link-text">Approvals</span>
                     </a>
                 </li>
@@ -113,7 +113,7 @@
 
                   <li class="nav-item  @yield('blockList')" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#blockList" data-parent="#exampleAccordion">
-                        <i class="ti i-cl-12 ti-settings"></i>
+                        <i class="ti i-cl-12 ti-lock"></i>
                         <span class="nav-link-text">Block List</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="blockList">
@@ -128,12 +128,12 @@
 
                 <li class="nav-item @yield('report')" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Report" data-parent="#exampleAccordion">
-                        <i class="ti i-cl-12 ti-settings"></i>
+                        <i class="ti i-cl-12 ti-save"></i>
                         <span class="nav-link-text">Report</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="Report">
                          <li>
-                            <a href="#">Reports -</a>
+                            <a href="#">Reports</a>
                         </li>
                     </ul>
                 </li>

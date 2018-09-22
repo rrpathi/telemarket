@@ -18,5 +18,10 @@ class AdminTableSeeder extends Seeder
             'password' => bcrypt('123456'),
            
         ]);
+
+        DB::table('customers')->truncate();
+        DB::table('customers')->insert([
+            'name' => 'Shanmugha College'          
+        ]);
     }
 }
